@@ -11,7 +11,7 @@ import VueRouter from "vue-router";
 // import CrowdsaleForRetailUnlimited from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimited.vue";
 // import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimitedHistory.vue";
 // import StakingNodeRewards from "../views/staking-node/StakingNodeRewards.vue";
-// import InviteForRelationship from "../views/relationship/InviteForRelationship.vue";
+import InviteForRelationship from "../views/relationship/InviteForRelationship.vue";
 
 Vue.use(VueRouter);
 
@@ -91,11 +91,11 @@ const routes = [
       //   name: "StakingNodeRewards",
       //   component: StakingNodeRewards
       // },
-      // {
-      //   path: "/invite",
-      //   name: "Invite",
-      //   component: InviteForRelationship
-      // },
+      {
+        path: "/invite",
+        name: "Invite",
+        component: InviteForRelationship
+      },
       {
         path: "*",
         redirect: "/"

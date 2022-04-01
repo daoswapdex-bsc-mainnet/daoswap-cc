@@ -82,14 +82,14 @@
             text
             >{{ $t("Task 6") }}</v-tab
           > -->
-          <!-- <v-tab
+          <v-tab
             to="/invite"
             :ripple="false"
             class="font-weight-bold"
             min-width="96"
             text
             >{{ $t("Invite") }}</v-tab
-          > -->
+          >
           <v-tab
             to="/Whitepaper.pdf"
             target="_blank"
@@ -148,9 +148,9 @@
           <v-list-item to="/task-6">
             <v-list-item-title>{{ $t("Task 6") }}</v-list-item-title>
           </v-list-item> -->
-          <!-- <v-list-item to="/invite">
+          <v-list-item to="/invite">
             <v-list-item-title>{{ $t("Invite") }}</v-list-item-title>
-          </v-list-item> -->
+          </v-list-item>
           <v-list-item to="/Whitepaper.pdf" target="_blank">
             <v-list-item-title>{{ $t("Whitepaper") }}</v-list-item-title>
           </v-list-item>

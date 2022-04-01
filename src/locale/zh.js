@@ -116,8 +116,8 @@ export default {
   "The inviter's account cannot be yourself": "邀请人地址不能为自己",
   "Received amount": "已领取金额",
   "Please enter your mentor's address to open mystery box":
-    "输入极光学院导师的钱包地址，领取盲盒（随机1-10000枚DAO）",
-  "Please enter your mentor's address": "请输入极光学院导师的钱包地址",
+    "输入极光导师的钱包地址，领取盲盒（随机1-10000枚DAO）",
+  "Please enter your mentor's address": "请输入极光导师的钱包地址",
   "Please enter identify code": "请输入验证码",
   "The identify code is wrong": "验证码错误",
   Open: "打开",

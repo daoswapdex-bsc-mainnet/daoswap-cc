@@ -37,7 +37,7 @@ export const CrowdsaleForRetailUnlimitedContractAddress =
   "0x7737b0AC92a7B8d94c18F19A4d59513ec0abdFc9";
 
 export const InviteForRelationshipContractAddress =
-  "0x345015F4E0E8390B154466eFfE75B250e7F30E33";
+  "0xe902390a2900758B7F55Ca447fd783b34b5ff6dA";
 
 /********** base **********/
 export const DAOAddress = "0xc096332CAacF00319703558988aD03eC6586e704";

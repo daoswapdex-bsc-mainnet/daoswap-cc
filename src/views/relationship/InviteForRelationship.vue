@@ -15,33 +15,7 @@
               </v-card-title>
               <v-divider></v-divider>
               <v-card-text>
-                <v-row align="center" v-if="accountAssets.isInvited">
-                  <v-col class="display-3" cols="12" v-if="isTransfer">
-                    <v-card-title>
-                      <span class="headline">{{ $t("Received amount") }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-row align="center">
-                        <v-col class="display-3" cols="12">
-                          {{ accountAssets.airdropAmount }}
-                          <span class="display-1">
-                            DAO
-                          </span>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                  </v-col>
-                  <v-col class="display-3" cols="12" v-else>
-                    <v-card-text>
-                      <v-row align="center">
-                        <v-col class="display-3" cols="12">
-                          {{ $t("You have accepted the invitation") }}
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                  </v-col>
-                </v-row>
-                <form v-else>
+                <form>
                   <v-card-title>
                     <span class="headline">{{
                       $t("Please enter your mentor's address")
@@ -161,10 +135,8 @@ export default {
     inviterAccount: undefined,
     // 当前账户相关信息
     accountAssets: {
-      isTransfer: false,
       isInvited: false,
-      inviterToken: null,
-      airdropAmount: 0
+      inviterToken: null
     },
     // 提示框
     operationResult: {
@@ -258,16 +230,14 @@ export default {
     async getAccountAssets() {
       this.loading = true;
       try {
-        // 查询白名单、空投列表
-        const contract2 = getContractByABI(
+        // 查询是否已经被邀请过
+        const contract = getContractByABI(
           InviteForRelationship_ABI,
           InviteForRelationshipContractAddress,
           this.web3
         );
-        const hasAirdropList2 = await contract2.methods
-          .hasAirdropList(this.address)
-          .call();
-        if (hasAirdropList2) {
+        const isInvitee = await contract.methods.isInvitee(this.address).call();
+        if (isInvitee) {
           this.accountAssets.isInvited = true;
         } else {
           this.accountAssets.isInvited = false;
@@ -277,7 +247,7 @@ export default {
       }
       this.loading = false;
     },
-    // 领取空投
+    // 接受邀请
     async submit() {
       if (this.$v.$invalid) {
         // error info
@@ -288,24 +258,35 @@ export default {
       } else {
         this.$v.$touch();
         this.loading = true;
-        // 查询第2期结果
-        const contract2 = getContractByABI(
+        // 查询结果
+        const contract = getContractByABI(
           InviteForRelationship_ABI,
           InviteForRelationshipContractAddress,
           this.web3
         );
-        // 执行合约
-        contract2.methods
-          .receiveAirdrop(toChecksumAddress(this.inviterAccount))
-          .send({ from: this.address })
-          .then(() => {
-            this.loading = false;
-            this.getAccountAssets();
-          })
-          .catch(e => {
-            this.loading = false;
-            console.info(e);
-          });
+        // check account
+        const isInvitee = await contract.methods
+          .isInvitee(toChecksumAddress(this.inviterAccount))
+          .call();
+        if (isInvitee) {
+          // 执行合约
+          contract.methods
+            .accept(toChecksumAddress(this.inviterAccount))
+            .send({ from: this.address })
+            .then(() => {
+              this.loading = false;
+              this.getAccountAssets();
+            })
+            .catch(e => {
+              this.loading = false;
+              console.info(e);
+            });
+        } else {
+          this.operationResult.color = "error";
+          this.operationResult.snackbar = true;
+          this.operationResult.text = "The mentor's address is wrong";
+          this.loading = false;
+        }
       }
     }
   }
