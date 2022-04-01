@@ -14,8 +14,19 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text>
-                <form>
+              <v-card-text v-if="chainId === 56">
+                <v-row align="center" v-if="accountAssets.isInvited">
+                  <v-col class="display-3" cols="12">
+                    <v-card-text>
+                      <v-row align="center">
+                        <v-col class="display-3" cols="12">
+                          {{ $t("You have accepted the invitation") }}
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-col>
+                </v-row>
+                <form v-else>
                   <v-card-title>
                     <span class="headline">{{
                       $t("Please enter your mentor's address")
@@ -46,6 +57,19 @@
                     </v-btn>
                   </v-card-actions>
                 </form>
+              </v-card-text>
+              <v-card-text v-else>
+                <v-row align="center">
+                  <v-col class="display-3" cols="12">
+                    <v-card-text>
+                      <v-row align="center">
+                        <v-col class="display-3" cols="12">
+                          {{ $t("Please change BNB Smart Chain") }}
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-col>
+                </v-row>
               </v-card-text>
             </v-card>
           </v-card>
@@ -173,6 +197,9 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
+    },
+    chainId() {
+      return this.$store.state.web3.chainId;
     },
     inviterAccountErrors() {
       const errors = [];

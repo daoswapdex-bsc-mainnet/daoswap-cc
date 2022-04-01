@@ -219,5 +219,7 @@ export default {
   "Planetary New Quantity": "新增行星节点数量",
   "Account New Quantity": "新增普通账号节点数量",
 
-  "Task 6": "任务6"
+  "Task 6": "任务6",
+
+  "Please change BNB Smart Chain": "请切换BSC链"
 };

@@ -225,5 +225,7 @@ export default {
   "Planetary New Quantity": "Planetary New Quantity",
   "Account New Quantity": "Account New Quantity",
 
-  "Task 6": "Task 6"
+  "Task 6": "Task 6",
+
+  "Please change BNB Smart Chain": "Please change BNB Smart Chain"
 };
