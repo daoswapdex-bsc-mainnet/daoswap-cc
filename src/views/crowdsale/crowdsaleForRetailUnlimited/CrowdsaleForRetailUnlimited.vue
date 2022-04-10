@@ -165,10 +165,10 @@ import {
   DSTAddress,
   CrowdsaleForRetailUnlimitedContractAddress
 } from "@/constants";
-import { getContract, weiToEther, etherToWei } from "@/utils/web3";
+import { getContractByABI, weiToEther, etherToWei } from "@/utils/web3";
 // 引入合约 ABI 文件
-import ERC20DST from "@/constants/contractJson/ERC20DST.json";
-import CrowdsaleForRetailUnlimited from "@/constants/contractJson/CrowdsaleForRetailUnlimited.json";
+import ERC20DST_ABI from "@/constants/contractJson/ERC20DST_abi.json";
+import CrowdsaleForRetailUnlimited_ABI from "@/constants/contractJson/CrowdsaleForRetailUnlimited_abi.json";
 
 export default {
   name: "CrowdsaleForRetailUnlimited",
@@ -244,7 +244,7 @@ export default {
       this.loading = true;
       try {
         // 查询当前账号余额
-        const contract = getContract(ERC20DST, DSTAddress, this.web3);
+        const contract = getContractByABI(ERC20DST_ABI, DSTAddress, this.web3);
         this.dataForCrowdsale.tokenSymbol = await contract.methods
           .symbol()
           .call();
@@ -265,8 +265,8 @@ export default {
     async getCrowdsaleInfo() {
       this.loading = true;
       try {
-        const contract = getContract(
-          CrowdsaleForRetailUnlimited,
+        const contract = getContractByABI(
+          CrowdsaleForRetailUnlimited_ABI,
           CrowdsaleForRetailUnlimitedContractAddress,
           this.web3
         );
@@ -286,7 +286,7 @@ export default {
     handleApprove() {
       this.loading = true;
       // 执行合约
-      getContract(ERC20DST, DSTAddress, this.web3)
+      getContractByABI(ERC20DST_ABI, DSTAddress, this.web3)
         .methods.approve(
           CrowdsaleForRetailUnlimitedContractAddress,
           etherToWei(this.accountAssets.balance, this.web3)
@@ -308,8 +308,8 @@ export default {
     handleCrowdsale() {
       this.loading = true;
       // 执行合约
-      getContract(
-        CrowdsaleForRetailUnlimited,
+      getContractByABI(
+        CrowdsaleForRetailUnlimited_ABI,
         CrowdsaleForRetailUnlimitedContractAddress,
         this.web3
       )

@@ -41,16 +41,17 @@
             min-width="96"
             text
             >{{ $t("Stake") }}</v-tab
-          >
+          > -->
           <v-tab
             to="/stake-dst"
             :ripple="false"
             class="font-weight-bold"
             min-width="96"
             text
+            v-if="isInWhiteList"
             >{{ $t("Stake DST") }}</v-tab
           >
-          <v-tab
+          <!-- <v-tab
             to="/airdrop"
             :ripple="false"
             class="font-weight-bold"
@@ -130,11 +131,11 @@
           </v-list-item>
           <!-- <v-list-item to="/stake">
             <v-list-item-title>{{ $t("Stake") }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item to="/stake-dst">
+          </v-list-item> -->
+          <v-list-item to="/stake-dst" v-if="isInWhiteList">
             <v-list-item-title>{{ $t("Stake DST") }}</v-list-item-title>
           </v-list-item>
-          <v-list-item to="/airdrop">
+          <!-- <v-list-item to="/airdrop">
             <v-list-item-title>{{ $t("Airdrop") }}</v-list-item-title>
           </v-list-item>
           <v-list-item to="/hash-mining">

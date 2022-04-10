@@ -157,10 +157,10 @@ import {
   DAOAddress,
   CrowdsaleForRetailUnlimitedContractAddress
 } from "@/constants";
-import { getContract, weiToEther } from "@/utils/web3";
+import { getContractByABI, weiToEther } from "@/utils/web3";
 // 引入合约 ABI 文件
-import CrowdsaleForRetailUnlimited from "@/constants/contractJson/CrowdsaleForRetailUnlimited.json";
-import TokenVestingRetailUnlimited from "@/constants/contractJson/TokenVestingRetailUnlimited.json";
+import CrowdsaleForRetailUnlimited_ABI from "@/constants/contractJson/CrowdsaleForRetailUnlimited_abi.json";
+import TokenVestingRetailUnlimited_ABI from "@/constants/contractJson/TokenVestingRetailUnlimited_abi.json";
 
 export default {
   name: "CrowdsaleForRetailUnlimitedHistory",
@@ -208,6 +208,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
+      // return "0xafd493fB2BFe84C35A951e921c164BC390515700";
     }
   },
   methods: {
@@ -231,8 +232,8 @@ export default {
       this.loading = true;
       try {
         // 查询质押信息
-        const contract = getContract(
-          CrowdsaleForRetailUnlimited,
+        const contract = getContractByABI(
+          CrowdsaleForRetailUnlimited_ABI,
           CrowdsaleForRetailUnlimitedContractAddress,
           this.web3
         );
@@ -250,18 +251,22 @@ export default {
         this.vestingAddressList = [];
         if (vestingAddress.length > 0) {
           const getResult = vestingAddress.map(async item => {
-            const contract = await getContract(
-              TokenVestingRetailUnlimited,
+            const contractVesting = await getContractByABI(
+              TokenVestingRetailUnlimited_ABI,
               item,
               this.web3
             );
-            const start = await contract.methods.start().call();
-            const duration = await contract.methods.duration().call();
-            const tokenAmount = await contract.methods.tokenAmount().call();
-            const releasableAmount = await contract.methods
+            const start = await contractVesting.methods.start().call();
+            const duration = await contractVesting.methods.duration().call();
+            const tokenAmount = await contractVesting.methods
+              .tokenAmount()
+              .call();
+            const releasableAmount = await contractVesting.methods
               .releasableAmount(DAOAddress)
               .call();
-            const released = await contract.methods.released(DAOAddress).call();
+            const released = await contractVesting.methods
+              .released(DAOAddress)
+              .call();
             const tempVesting = {
               contractAddress: item,
               start: start,
@@ -283,8 +288,8 @@ export default {
     handleRelease(record) {
       this.loading = true;
       // 执行合约
-      getContract(
-        TokenVestingRetailUnlimited,
+      getContractByABI(
+        TokenVestingRetailUnlimited_ABI,
         record.contractAddress,
         this.web3
       )

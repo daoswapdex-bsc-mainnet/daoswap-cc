@@ -8,8 +8,8 @@ import VueRouter from "vue-router";
 // import AirdropForSwapsSnapshot from "../views/airdrop/AirdropForSwapsSnapshot.vue";
 // import ComputingPowerMiningForLiquidity from "../views/chn/ComputingPowerMiningForLiquidity.vue";
 // import ComputingPowerMiningForLiquidityCreation from "../views/chn/ComputingPowerMiningForLiquidityCreation.vue";
-// import CrowdsaleForRetailUnlimited from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimited.vue";
-// import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimitedHistory.vue";
+import CrowdsaleForRetailUnlimited from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimited.vue";
+import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimitedHistory.vue";
 // import StakingNodeRewards from "../views/staking-node/StakingNodeRewards.vue";
 import InviteForRelationship from "../views/relationship/InviteForRelationship.vue";
 
@@ -53,24 +53,24 @@ const routes = [
       //     }
       //   ]
       // },
-      // {
-      //   path: "/stake-dst",
-      //   name: "StakeDST",
-      //   redirect: "/stake-dst/stake",
-      //   component: () => import("@/layouts/home/ViewBlank.vue"),
-      //   children: [
-      //     {
-      //       path: "/stake-dst/stake",
-      //       name: "CrowdsaleForRetailUnlimited",
-      //       component: CrowdsaleForRetailUnlimited
-      //     },
-      //     {
-      //       path: "/stake-dst/history",
-      //       name: "CrowdsaleForRetailUnlimitedHistory",
-      //       component: CrowdsaleForRetailUnlimitedHistory
-      //     }
-      //   ]
-      // },
+      {
+        path: "/stake-dst",
+        name: "StakeDST",
+        redirect: "/stake-dst/stake",
+        component: () => import("@/layouts/home/ViewBlank.vue"),
+        children: [
+          {
+            path: "/stake-dst/stake",
+            name: "CrowdsaleForRetailUnlimited",
+            component: CrowdsaleForRetailUnlimited
+          },
+          {
+            path: "/stake-dst/history",
+            name: "CrowdsaleForRetailUnlimitedHistory",
+            component: CrowdsaleForRetailUnlimitedHistory
+          }
+        ]
+      },
       // {
       //   path: "/airdrop",
       //   name: "Airdrop",
