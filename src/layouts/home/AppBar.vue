@@ -48,7 +48,6 @@
             class="font-weight-bold"
             min-width="96"
             text
-            v-if="isInWhiteList"
             >{{ $t("Stake DST") }}</v-tab
           >
           <!-- <v-tab
@@ -132,7 +131,7 @@
           <!-- <v-list-item to="/stake">
             <v-list-item-title>{{ $t("Stake") }}</v-list-item-title>
           </v-list-item> -->
-          <v-list-item to="/stake-dst" v-if="isInWhiteList">
+          <v-list-item to="/stake-dst">
             <v-list-item-title>{{ $t("Stake DST") }}</v-list-item-title>
           </v-list-item>
           <!-- <v-list-item to="/airdrop">
