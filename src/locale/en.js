@@ -227,5 +227,6 @@ export default {
 
   "Task 6": "Task 6",
 
-  "Please change BNB Smart Chain": "Please change BNB Smart Chain"
+  "Please change BNB Smart Chain": "Please change BNB Smart Chain",
+  "Function adjustment, open later": "Function adjustment, open later"
 };

@@ -15,7 +15,18 @@
               </v-card-title>
               <v-divider></v-divider>
               <v-card-text v-if="chainId === 56">
-                <v-row align="center" v-if="accountAssets.isInvited">
+                <v-row align="center">
+                  <v-col class="display-3" cols="12">
+                    <v-card-text>
+                      <v-row align="center">
+                        <v-col class="display-2" cols="12">
+                          {{ $t("Function adjustment, open later") }}
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                  </v-col>
+                </v-row>
+                <!-- <v-row align="center" v-if="accountAssets.isInvited">
                   <v-col class="display-3" cols="12">
                     <v-card-text>
                       <v-row align="center">
@@ -56,7 +67,7 @@
                       {{ $t("Accept") }}
                     </v-btn>
                   </v-card-actions>
-                </form>
+                </form> -->
               </v-card-text>
               <v-card-text v-else>
                 <v-row align="center">

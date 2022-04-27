@@ -221,5 +221,6 @@ export default {
 
   "Task 6": "任务6",
 
-  "Please change BNB Smart Chain": "请切换BSC链"
+  "Please change BNB Smart Chain": "请切换BSC链",
+  "Function adjustment, open later": "功能调整，稍后开放"
 };
