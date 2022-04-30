@@ -39,7 +39,7 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text v-if="powerDataList.length > 0">
+              <v-card-text v-if="chainId === 56 && powerDataList.length > 0">
                 <v-card
                   v-for="item in powerDataList"
                   :key="item.account"
@@ -195,45 +195,8 @@ export default {
     loading: false,
     tokenSymbol: "DAO",
     // 算力合约列表
-    powerDuration: "2022-03-18 11:00:00 ~ 2022-04-01 11:00:00",
-    powerContractAddressList: [
-      {
-        id: 1,
-        address: "0x486a483adDf8446AE2412A1E9bf30D1A90f0e026"
-      },
-      {
-        id: 2,
-        address: "0x84892cb24159d3DBdB9b704c4c5a86b52d21D915"
-      },
-      {
-        id: 3,
-        address: "0x2B2F68df4B8DDae04ACCDd15470c9f2cC8e1f926"
-      },
-      {
-        id: 4,
-        address: "0xd667bAE20e4dBF36099ECA20240201aed3c4e77f"
-      },
-      {
-        id: 5,
-        address: "0x2EC0d8465af466c57F75Bf166a5180Fd7B0c513e"
-      },
-      {
-        id: 6,
-        address: "0x15485AAb318c60d01a57934ADE5a28282314f0Ce"
-      },
-      {
-        id: 7,
-        address: "0x0B37cA4489AE9f667A103D9FE98E306185715891"
-      },
-      {
-        id: 8,
-        address: "0x3740314E93D613787b14Dc67958A0dcFC1c167A2"
-      },
-      {
-        id: 9,
-        address: "0x3f98f690DFec48a03848c045d2D5E7F4838ee70E"
-      }
-    ],
+    powerDuration: "2022-04-28 11:00:00 ~ 2022-05-12 11:00:00",
+    powerContractAddressList: [],
     // 算力数据列表
     powerDataList: [],
     // 提示框
@@ -273,6 +236,9 @@ export default {
       // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
       // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
       return this.$store.state.web3.address;
+    },
+    chainId() {
+      return this.$store.state.web3.chainId;
     }
   },
   methods: {

@@ -39,7 +39,7 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text v-if="rewardsDataList.length > 0">
+              <v-card-text v-if="chainId === 56 && rewardsDataList.length > 0">
                 <v-card
                   v-for="item in rewardsDataList"
                   :key="item.account"
@@ -185,29 +185,8 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2022-03-18 11:00:00 ~ 2022-04-01 11:00:00",
-    rewardsContractAddressList: [
-      {
-        id: 1,
-        address: "0x452D71236CB695f4F9Ed106DC10dd26D5f6d4A52"
-      },
-      {
-        id: 2,
-        address: "0x7A6FB4404c3Aef68e321591430112b59D194deFC"
-      },
-      {
-        id: 3,
-        address: "0xEa04aEC41b89CF3f8c5093350b138c1bfBCa5094"
-      },
-      {
-        id: 4,
-        address: "0xC34FB5bE6D422cF196F4EcC84D422Fd9E1142425"
-      },
-      {
-        id: 5,
-        address: "0x7B97DF1DEDB76E628Bd1b384844fBDC0C60b0aED"
-      }
-    ],
+    powerDuration: "2022-04-28 11:00:00 ~ 2022-05-12 11:00:00",
+    rewardsContractAddressList: [],
     // 算力数据列表
     rewardsDataList: [],
     // 提示框
@@ -247,6 +226,9 @@ export default {
       // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
       // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
       return this.$store.state.web3.address;
+    },
+    chainId() {
+      return this.$store.state.web3.chainId;
     }
   },
   methods: {
