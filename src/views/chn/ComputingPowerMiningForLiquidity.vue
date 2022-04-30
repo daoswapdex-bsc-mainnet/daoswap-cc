@@ -67,10 +67,6 @@
                       }}
                       %
                     </p>
-                    <!-- <p>
-                      {{ $t("Power Node Hash Value") }}：$
-                      {{ item.powerInfo.powerValue }}
-                    </p> -->
                     <p>
                       {{ $t("Power Node Status") }}：{{
                         $t(`Node.${item.powerInfo.nodeType}`)
@@ -184,19 +180,24 @@
 
 <script>
 import clip from "@/utils/clipboard";
-import { getContract, weiToEther } from "@/utils/web3";
+import { getContractByABI, weiToEther } from "@/utils/web3";
 import { judgeCHNNodeTypeByValue, compare } from "@/filters/index";
 // 引入合约 ABI 文件
-import ComputingPowerMining from "@/constants/contractJson/ComputingPowerMiningForLiquidity.json";
+import ComputingPowerMining_ABI from "@/constants/contractJson/ComputingPowerMiningForLiquidityOnBsc_abi.json";
 
 export default {
   name: "ComputingPowerMiningForLiquidity",
   data: () => ({
     loading: false,
-    tokenSymbol: "DAO",
+    tokenSymbol: "DST",
     // 算力合约列表
     powerDuration: "2022-04-28 11:00:00 ~ 2022-05-12 11:00:00",
-    powerContractAddressList: [],
+    powerContractAddressList: [
+      {
+        id: 1,
+        address: "0x58B33f4ee75497Cf52C3Ce0954Ca3a9b81dab2fD"
+      }
+    ],
     // 算力数据列表
     powerDataList: [],
     // 提示框
@@ -233,7 +234,7 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
+      // return "0x1e84d8bf23dcafa66e9b7f3a1e5f45ffbc5cf27c";
       // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
       return this.$store.state.web3.address;
     },
@@ -263,8 +264,8 @@ export default {
         this.powerDataList = [];
         this.loading = true;
         const getResult = this.powerContractAddressList.map(async item => {
-          const contract = await getContract(
-            ComputingPowerMining,
+          const contract = await getContractByABI(
+            ComputingPowerMining_ABI,
             item.address,
             this.web3
           );
@@ -273,9 +274,6 @@ export default {
             .call();
           if (hasPowerInfo) {
             const countedPower = await contract.methods.countedPower().call();
-            const countedPowerValue = await contract.methods
-              .countedPowerValue()
-              .call();
             const startTime = await contract.methods.startTime().call();
             const endTime = await contract.methods.endTime().call();
             const powerInfo = await contract.methods
@@ -286,12 +284,10 @@ export default {
               periodId: item.id,
               contractAddress: item.address,
               countedPower: weiToEther(countedPower, this.web3),
-              countedPowerValue: weiToEther(countedPowerValue, this.web3),
               startTime: startTime,
               endTime: endTime,
               powerInfo: {
                 power: weiToEther(powerInfo.power, this.web3),
-                powerValue: weiToEther(powerInfo.powerValue, this.web3),
                 receiveAmount: weiToEther(powerInfo.receiveAmount, this.web3),
                 nodeType: judgeCHNNodeTypeByValue(powerInfo.nodeType),
                 liquidity: weiToEther(powerInfo.liquidity, this.web3),
@@ -311,7 +307,11 @@ export default {
     handleRelease(record) {
       this.loading = true;
       // 执行合约
-      getContract(ComputingPowerMining, record.contractAddress, this.web3)
+      getContractByABI(
+        ComputingPowerMining_ABI,
+        record.contractAddress,
+        this.web3
+      )
         .methods.claim()
         .send({ from: this.address })
         .then(() => {
