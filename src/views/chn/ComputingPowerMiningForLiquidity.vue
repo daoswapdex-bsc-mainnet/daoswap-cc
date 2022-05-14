@@ -191,8 +191,12 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2022-04-28 11:00:00 ~ 2022-05-12 11:00:00",
+    powerDuration: "2022-05-12 11:00:00 ~ 2022-05-26 11:00:00",
     powerContractAddressList: [
+      {
+        id: 2,
+        address: "0x0eeb3e3614366147fb8aa732d4a40e11b8ca0d97"
+      },
       {
         id: 1,
         address: "0x58B33f4ee75497Cf52C3Ce0954Ca3a9b81dab2fD"
