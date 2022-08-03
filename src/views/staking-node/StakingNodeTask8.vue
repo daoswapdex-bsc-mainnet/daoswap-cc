@@ -39,8 +39,7 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <!-- <v-card-text v-if="chainId === 56 && rewardsDataList.length > 0"> -->
-              <v-card-text v-if="rewardsDataList.length > 0">
+              <v-card-text v-if="chainId === 56 && rewardsDataList.length > 0">
                 <v-card
                   v-for="item in rewardsDataList"
                   :key="item.account"
