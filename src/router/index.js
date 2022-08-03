@@ -11,6 +11,7 @@ import ComputingPowerMiningForLiquidity from "../views/chn/ComputingPowerMiningF
 import CrowdsaleForRetailUnlimited from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimited.vue";
 import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForRetailUnlimited/CrowdsaleForRetailUnlimitedHistory.vue";
 import StakingNodeRewards from "../views/staking-node/StakingNodeRewards.vue";
+import StakingNodeTask8 from "../views/staking-node/StakingNodeTask8.vue";
 import InviteForRelationship from "../views/relationship/InviteForRelationship.vue";
 
 Vue.use(VueRouter);
@@ -90,6 +91,11 @@ const routes = [
         path: "/task-6",
         name: "StakingNodeRewards",
         component: StakingNodeRewards
+      },
+      {
+        path: "/task-8",
+        name: "StakingNodeTask8",
+        component: StakingNodeTask8
       },
       {
         path: "/invite",

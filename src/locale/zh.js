@@ -220,6 +220,7 @@ export default {
   "Account New Quantity": "新增普通账号节点数量",
 
   "Task 6": "任务6",
+  "Task 8": "任务8",
 
   "Please change BNB Smart Chain": "请切换BSC链",
   "Function adjustment, open later": "功能调整，稍后开放"

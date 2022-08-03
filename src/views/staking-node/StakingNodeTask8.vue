@@ -39,7 +39,8 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text v-if="chainId === 56 && rewardsDataList.length > 0">
+              <!-- <v-card-text v-if="chainId === 56 && rewardsDataList.length > 0"> -->
+              <v-card-text v-if="rewardsDataList.length > 0">
                 <v-card
                   v-for="item in rewardsDataList"
                   :key="item.account"
@@ -177,10 +178,10 @@ import clip from "@/utils/clipboard";
 import { getContractByABI, weiToEther } from "@/utils/web3";
 import { compare } from "@/filters/index";
 // 引入合约 ABI 文件
-import StakingNodeRewards_ABI from "@/constants/contractJson/StakingNodeRewards_abi.json";
+import StakingNodeTask8_ABI from "@/constants/contractJson/StakingNodeTask8_abi.json";
 
 export default {
-  name: "StakingNodeRewards",
+  name: "StakingNodeTask8",
   data: () => ({
     loading: false,
     tokenSymbol: "DST",
@@ -188,32 +189,8 @@ export default {
     powerDuration: "2022-08-01 11:00:00 ~ 2022-09-01 11:00:00",
     rewardsContractAddressList: [
       {
-        id: 7,
-        address: "0x4079E56FB984cab196f33F45310d6289D755251a"
-      },
-      {
-        id: 6,
-        address: "0xb0B1bE3716386bC0fC4f47B63fB514a39B3e8ACA"
-      },
-      {
-        id: 5,
-        address: "0xd3040c2b56B8e7414Fba2B87f58a22CB61eD7dd9"
-      },
-      {
-        id: 4,
-        address: "0xBFf2F7b02c8bbcb3262cFc29c93AD310053B140C"
-      },
-      {
-        id: 3,
-        address: "0xE32edd74caEd595eE8078EF7fAACd45f53836BBA"
-      },
-      {
-        id: 2,
-        address: "0x226c3f5774798cb79dbec4b6d920b504e840f427"
-      },
-      {
         id: 1,
-        address: "0x05f1732E87b70480F3CFB6be394b1C1Fd502E1a6"
+        address: "0xA1Bd28C603892de696Ff8DB754d0c6a05f842ac8"
       }
     ],
     // 算力数据列表
@@ -283,7 +260,7 @@ export default {
         this.loading = true;
         const getResult = this.rewardsContractAddressList.map(async item => {
           const contract = await getContractByABI(
-            StakingNodeRewards_ABI,
+            StakingNodeTask8_ABI,
             item.address,
             this.web3
           );
@@ -320,11 +297,7 @@ export default {
     handleRelease(record) {
       this.loading = true;
       // 执行合约
-      getContractByABI(
-        StakingNodeRewards_ABI,
-        record.contractAddress,
-        this.web3
-      )
+      getContractByABI(StakingNodeTask8_ABI, record.contractAddress, this.web3)
         .methods.getRewards()
         .send({ from: this.address })
         .then(() => {

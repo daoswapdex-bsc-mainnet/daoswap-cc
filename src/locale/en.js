@@ -226,6 +226,7 @@ export default {
   "Account New Quantity": "Account New Quantity",
 
   "Task 6": "Task 6",
+  "Task 8": "Task 8",
 
   "Please change BNB Smart Chain": "Please change BNB Smart Chain",
   "Function adjustment, open later": "Function adjustment, open later"
