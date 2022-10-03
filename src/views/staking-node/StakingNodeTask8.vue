@@ -185,8 +185,12 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2022-09-01 11:00:00 ~ 2022-10-01 11:00:00",
+    powerDuration: "2022-10-01 11:00:00 ~ 2022-11-01 11:00:00",
     rewardsContractAddressList: [
+      {
+        id: 3,
+        address: "0xe96CB806F25ff74f37DBe4F73ecAD84a4e93e784"
+      },
       {
         id: 2,
         address: "0x15B2258694B6535cff6332aEdD6F09546a221171"
