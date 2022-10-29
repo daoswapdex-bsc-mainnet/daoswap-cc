@@ -39,138 +39,6 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text v-if="chainId === 56 && powerDataListNew.length > 0">
-                <v-card
-                  v-for="item in powerDataListNew"
-                  :key="item.account"
-                  :loading="loading"
-                  class="ma-2"
-                >
-                  <v-card-title>
-                    {{ $t("Power Phase") }}
-                    {{ item.periodId }}
-                    {{ $t("Power Expect") }}
-                  </v-card-title>
-                  <v-divider class="mx-4"></v-divider>
-                  <v-card-text>
-                    <p>
-                      {{ $t("Power Duration") }}：{{
-                        item.startTime | parseTime("{y}-{m}-{d}")
-                      }}
-                      ~
-                      {{ item.endTime | parseTime("{y}-{m}-{d}") }}
-                    </p>
-                    <p>
-                      {{ $t("Power Node Status") }}：{{
-                        $t(`Node.${item.nodeType}`)
-                      }}
-                    </p>
-                    <p>
-                      {{
-                        $t("Personal cumulative total accounting strength")
-                      }}：{{ item.power | keepNumber }}
-                    </p>
-                    <p>
-                      {{
-                        $t(
-                          "LP quantity of DAO-USDT to be added in the next period"
-                        )
-                      }}：{{ item.nextStandard }}
-                    </p>
-                  </v-card-text>
-                  <v-divider class="mx-4"></v-divider>
-                  <v-card-actions class="justify-space-between">
-                    <v-simple-table style="width: 100%;">
-                      <template v-slot:default>
-                        <thead>
-                          <tr>
-                            <th class="text-left">
-                              {{ $t("Token Symbol") }}
-                            </th>
-                            <th class="text-left">
-                              {{ $t("Claimable Amount") }}
-                            </th>
-                            <th class="text-left">
-                              {{ $t("Claimabled Amount") }}
-                            </th>
-                            <th class="text-left">{{ $t("Operation") }}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>{{ item.rewardDAO.tokenSymbol }}</td>
-                            <td>
-                              {{
-                                (item.rewardDAO.isClaim
-                                  ? 0
-                                  : item.rewardDAO.amount) | keepNumber
-                              }}
-                            </td>
-                            <td>
-                              {{
-                                (item.rewardDAO.isClaim
-                                  ? item.rewardDAO.amount
-                                  : 0) | keepNumber
-                              }}
-                            </td>
-                            <td>
-                              <v-btn
-                                v-if="!item.rewardDAO.isClaim"
-                                small
-                                color="#93B954"
-                                dark
-                                width="80%"
-                                @click="
-                                  handleReleaseNew(
-                                    item.contractAddress,
-                                    item.rewardDAO.token
-                                  )
-                                "
-                              >
-                                {{ $t("Claim") }}
-                              </v-btn>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>{{ item.rewardDST.tokenSymbol }}</td>
-                            <td>
-                              {{
-                                (item.rewardDST.isClaim
-                                  ? 0
-                                  : item.rewardDST.amount) | keepNumber
-                              }}
-                            </td>
-                            <td>
-                              {{
-                                (item.rewardDST.isClaim
-                                  ? item.rewardDST.amount
-                                  : 0) | keepNumber
-                              }}
-                            </td>
-                            <td>
-                              <v-btn
-                                v-if="!item.rewardDST.isClaim"
-                                small
-                                color="#93B954"
-                                dark
-                                width="80%"
-                                @click="
-                                  handleReleaseNew(
-                                    item.contractAddress,
-                                    item.rewardDST.token
-                                  )
-                                "
-                              >
-                                {{ $t("Claim") }}
-                              </v-btn>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </template>
-                    </v-simple-table>
-                  </v-card-actions>
-                </v-card>
-              </v-card-text>
               <v-card-text v-if="chainId === 56 && powerDataList.length > 0">
                 <v-card
                   v-for="item in powerDataList"
@@ -192,26 +60,22 @@
                       ~
                       {{ item.endTime | parseTime("{y}-{m}-{d}") }}
                     </p>
-                    <!-- <p>{{ $t("全网新增总算力") }}：{{ item.countedPower }}</p>
+                    <p>{{ $t("Power All Hash") }}：{{ item.countedPower }}</p>
                     <p>
                       {{ $t("Power Node Proportion") }}：{{
                         item.annualizedRate
                       }}
                       %
-                    </p> -->
+                    </p>
                     <p>
                       {{ $t("Power Node Status") }}：{{
                         $t(`Node.${item.powerInfo.nodeType}`)
                       }}
                     </p>
-                    <p>
-                      {{ $t("个人累计总算力") }}：
+                    <!-- <p>
+                      {{ $t("Power DAO-USDT Liquidity Value") }}：$
                       {{ item.powerInfo.liquidity }}
-                    </p>
-                    <p>
-                      {{ $t("下期需新增DAO-USDT的LP数量") }}：
-                      {{ item.powerInfo.liquidity }}
-                    </p>
+                    </p> -->
                     <p>
                       {{ $t("Claimable Amount") }} /
                       {{ $t("Claimabled Amount") }}：{{
@@ -242,12 +106,7 @@
                   </v-card-actions>
                 </v-card>
               </v-card-text>
-              <v-card-text
-                v-if="
-                  chainId === 56 ||
-                    (powerDataListNew.length <= 0 && powerDataList.length <= 0)
-                "
-              >
+              <v-card-text v-else>
                 <v-row align="center">
                   <v-col class="body-3" cols="12">
                     {{ $t("No Data") }}
@@ -325,7 +184,6 @@ import { getContractByABI, weiToEther } from "@/utils/web3";
 import { judgeCHNNodeTypeByValue, compare } from "@/filters/index";
 // 引入合约 ABI 文件
 import ComputingPowerMining_ABI from "@/constants/contractJson/ComputingPowerMiningForLiquidityOnBsc_abi.json";
-import CHNPowerMining_ABI from "@/constants/abi/CHNPowerMining_abi.json";
 
 export default {
   name: "ComputingPowerMiningForLiquidity",
@@ -333,7 +191,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2022-11-01 11:00:00 ~ 2022-12-01 11:00:00",
+    powerDuration: "2022-10-01 11:00:00 ~ 2022-11-01 11:00:00",
     powerContractAddressList: [
       {
         id: 9,
@@ -376,15 +234,8 @@ export default {
         address: "0x58B33f4ee75497Cf52C3Ce0954Ca3a9b81dab2fD"
       }
     ],
-    powerContractAddressListNew: [
-      {
-        id: 10,
-        address: "0x3108FA5149bB2E801ed263d67f78498c66e10A0b"
-      }
-    ],
     // 算力数据列表
     powerDataList: [],
-    powerDataListNew: [],
     // 提示框
     operationResult: {
       color: "success",
@@ -394,7 +245,7 @@ export default {
   }),
   created() {
     if (this.web3 && this.connected) {
-      this.getPowerInfo();
+      this.getPowerDataList();
     } else {
       this.onConnect();
     }
@@ -402,12 +253,12 @@ export default {
   watch: {
     web3(web3) {
       if (web3) {
-        this.getPowerInfo();
+        this.getPowerDataList();
       }
     },
     address(address) {
       if (address) {
-        this.getPowerInfo();
+        this.getPowerDataList();
       }
     }
   },
@@ -419,9 +270,9 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
+      return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
       // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
-      return this.$store.state.web3.address;
+      // return this.$store.state.web3.address;
     },
     chainId() {
       return this.$store.state.web3.chainId;
@@ -442,65 +293,6 @@ export default {
       this.operationResult.color = "success";
       this.operationResult.snackbar = true;
       this.operationResult.text = "Cope Success";
-    },
-    // 获取算力数据
-    async getPowerInfo() {
-      await this.getPowerDataListNew();
-      await this.getPowerDataList();
-    },
-    // 获取算力数据列表-新版
-    async getPowerDataListNew() {
-      if (this.powerContractAddressListNew.length > 0) {
-        this.powerDataListNew = [];
-        this.loading = true;
-        const getResult = this.powerContractAddressListNew.map(async item => {
-          const contract = await getContractByABI(
-            CHNPowerMining_ABI,
-            item.address,
-            this.web3
-          );
-          const hasRewardsInfo = await contract.methods
-            .hasRewardsInfo(this.address)
-            .call();
-          if (hasRewardsInfo) {
-            const startTime = await contract.methods.startTime().call();
-            const endTime = await contract.methods.endTime().call();
-            const rewardsInfo = await contract.methods
-              .getRewardsInfo()
-              .call({ from: this.address });
-            if (
-              !rewardsInfo.rewardDAO.isClaim ||
-              !rewardsInfo.rewardDST.isClaim
-            ) {
-              const tempData = {
-                periodId: item.id,
-                contractAddress: item.address,
-                nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
-                power: weiToEther(rewardsInfo.power, this.web3),
-                nextStandard: rewardsInfo.nextStandard,
-                rewardDAO: {
-                  token: rewardsInfo.rewardDAO.token,
-                  tokenSymbol: rewardsInfo.rewardDAO.tokenSymbol,
-                  amount: weiToEther(rewardsInfo.rewardDAO.amount, this.web3),
-                  isClaim: rewardsInfo.rewardDAO.isClaim
-                },
-                rewardDST: {
-                  token: rewardsInfo.rewardDST.token,
-                  tokenSymbol: rewardsInfo.rewardDST.tokenSymbol,
-                  amount: weiToEther(rewardsInfo.rewardDST.amount, this.web3),
-                  isClaim: rewardsInfo.rewardDST.isClaim
-                },
-                startTime: startTime,
-                endTime: endTime
-              };
-              this.powerDataListNew.push(tempData);
-            }
-          }
-        });
-        await Promise.all(getResult);
-        this.powerDataListNew.sort(compare("periodId"));
-        this.loading = false;
-      }
     },
     // 获取算力数据列表
     async getPowerDataList() {
@@ -523,25 +315,23 @@ export default {
             const powerInfo = await contract.methods
               .accountPowerInfoList(this.address)
               .call();
-            if (!powerInfo.isClaim) {
-              const annualizedRate = (powerInfo.power / countedPower) * 100;
-              const tempData = {
-                periodId: item.id,
-                contractAddress: item.address,
-                countedPower: weiToEther(countedPower, this.web3),
-                startTime: startTime,
-                endTime: endTime,
-                powerInfo: {
-                  power: weiToEther(powerInfo.power, this.web3),
-                  receiveAmount: weiToEther(powerInfo.receiveAmount, this.web3),
-                  nodeType: judgeCHNNodeTypeByValue(powerInfo.nodeType),
-                  liquidity: weiToEther(powerInfo.liquidity, this.web3),
-                  isClaim: powerInfo.isClaim
-                },
-                annualizedRate: parseFloat(annualizedRate).toFixed(2)
-              };
-              this.powerDataList.push(tempData);
-            }
+            const annualizedRate = (powerInfo.power / countedPower) * 100;
+            const tempData = {
+              periodId: item.id,
+              contractAddress: item.address,
+              countedPower: weiToEther(countedPower, this.web3),
+              startTime: startTime,
+              endTime: endTime,
+              powerInfo: {
+                power: weiToEther(powerInfo.power, this.web3),
+                receiveAmount: weiToEther(powerInfo.receiveAmount, this.web3),
+                nodeType: judgeCHNNodeTypeByValue(powerInfo.nodeType),
+                liquidity: weiToEther(powerInfo.liquidity, this.web3),
+                isClaim: powerInfo.isClaim
+              },
+              annualizedRate: parseFloat(annualizedRate).toFixed(2)
+            };
+            this.powerDataList.push(tempData);
           }
         });
         await Promise.all(getResult);
@@ -565,26 +355,7 @@ export default {
           this.operationResult.snackbar = true;
           this.operationResult.text = "Claim Success";
           // 重新获取数据
-          this.getPowerInfo();
-        })
-        .catch(e => {
-          this.loading = false;
-          console.info(e);
-        });
-    },
-    // 提取代币
-    handleReleaseNew(contractAddress, token) {
-      this.loading = true;
-      // 执行合约
-      getContractByABI(CHNPowerMining_ABI, contractAddress, this.web3)
-        .methods.getRewards(token)
-        .send({ from: this.address })
-        .then(() => {
-          this.loading = false;
-          this.operationResult.snackbar = true;
-          this.operationResult.text = "Claim Success";
-          // 重新获取数据
-          this.getPowerInfo();
+          this.getPowerDataList();
         })
         .catch(e => {
           this.loading = false;
