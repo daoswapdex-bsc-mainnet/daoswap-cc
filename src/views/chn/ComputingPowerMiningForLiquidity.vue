@@ -192,26 +192,22 @@
                       ~
                       {{ item.endTime | parseTime("{y}-{m}-{d}") }}
                     </p>
-                    <!-- <p>{{ $t("全网新增总算力") }}：{{ item.countedPower }}</p>
+                    <p>{{ $t("Power All Hash") }}：{{ item.countedPower }}</p>
                     <p>
                       {{ $t("Power Node Proportion") }}：{{
                         item.annualizedRate
                       }}
                       %
-                    </p> -->
+                    </p>
                     <p>
                       {{ $t("Power Node Status") }}：{{
                         $t(`Node.${item.powerInfo.nodeType}`)
                       }}
                     </p>
-                    <p>
-                      {{ $t("个人累计总算力") }}：
+                    <!-- <p>
+                      {{ $t("Power DAO-USDT Liquidity Value") }}：$
                       {{ item.powerInfo.liquidity }}
-                    </p>
-                    <p>
-                      {{ $t("下期需新增DAO-USDT的LP数量") }}：
-                      {{ item.powerInfo.liquidity }}
-                    </p>
+                    </p> -->
                     <p>
                       {{ $t("Claimable Amount") }} /
                       {{ $t("Claimabled Amount") }}：{{
@@ -228,9 +224,13 @@
                       {{ tokenSymbol }}
                     </p>
                   </v-card-text>
-                  <v-divider class="mx-4"></v-divider>
+                  <v-divider
+                    class="mx-4"
+                    v-if="!item.powerInfo.isClaim"
+                  ></v-divider>
                   <v-card-actions class="justify-center">
                     <v-btn
+                      v-if="!item.powerInfo.isClaim"
                       color="#93B954"
                       dark
                       width="80%"
@@ -244,7 +244,7 @@
               </v-card-text>
               <v-card-text
                 v-if="
-                  chainId === 56 ||
+                  chainId !== 56 ||
                     (powerDataListNew.length <= 0 && powerDataList.length <= 0)
                 "
               >
@@ -468,33 +468,33 @@ export default {
             const rewardsInfo = await contract.methods
               .getRewardsInfo()
               .call({ from: this.address });
-            if (
-              !rewardsInfo.rewardDAO.isClaim ||
-              !rewardsInfo.rewardDST.isClaim
-            ) {
-              const tempData = {
-                periodId: item.id,
-                contractAddress: item.address,
-                nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
-                power: weiToEther(rewardsInfo.power, this.web3),
-                nextStandard: rewardsInfo.nextStandard,
-                rewardDAO: {
-                  token: rewardsInfo.rewardDAO.token,
-                  tokenSymbol: rewardsInfo.rewardDAO.tokenSymbol,
-                  amount: weiToEther(rewardsInfo.rewardDAO.amount, this.web3),
-                  isClaim: rewardsInfo.rewardDAO.isClaim
-                },
-                rewardDST: {
-                  token: rewardsInfo.rewardDST.token,
-                  tokenSymbol: rewardsInfo.rewardDST.tokenSymbol,
-                  amount: weiToEther(rewardsInfo.rewardDST.amount, this.web3),
-                  isClaim: rewardsInfo.rewardDST.isClaim
-                },
-                startTime: startTime,
-                endTime: endTime
-              };
-              this.powerDataListNew.push(tempData);
-            }
+            // if (
+            //   !rewardsInfo.rewardDAO.isClaim ||
+            //   !rewardsInfo.rewardDST.isClaim
+            // ) {
+            const tempData = {
+              periodId: item.id,
+              contractAddress: item.address,
+              nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
+              power: weiToEther(rewardsInfo.power, this.web3),
+              nextStandard: rewardsInfo.nextStandard,
+              rewardDAO: {
+                token: rewardsInfo.rewardDAO.token,
+                tokenSymbol: rewardsInfo.rewardDAO.tokenSymbol,
+                amount: weiToEther(rewardsInfo.rewardDAO.amount, this.web3),
+                isClaim: rewardsInfo.rewardDAO.isClaim
+              },
+              rewardDST: {
+                token: rewardsInfo.rewardDST.token,
+                tokenSymbol: rewardsInfo.rewardDST.tokenSymbol,
+                amount: weiToEther(rewardsInfo.rewardDST.amount, this.web3),
+                isClaim: rewardsInfo.rewardDST.isClaim
+              },
+              startTime: startTime,
+              endTime: endTime
+            };
+            this.powerDataListNew.push(tempData);
+            // }
           }
         });
         await Promise.all(getResult);
@@ -523,25 +523,25 @@ export default {
             const powerInfo = await contract.methods
               .accountPowerInfoList(this.address)
               .call();
-            if (!powerInfo.isClaim) {
-              const annualizedRate = (powerInfo.power / countedPower) * 100;
-              const tempData = {
-                periodId: item.id,
-                contractAddress: item.address,
-                countedPower: weiToEther(countedPower, this.web3),
-                startTime: startTime,
-                endTime: endTime,
-                powerInfo: {
-                  power: weiToEther(powerInfo.power, this.web3),
-                  receiveAmount: weiToEther(powerInfo.receiveAmount, this.web3),
-                  nodeType: judgeCHNNodeTypeByValue(powerInfo.nodeType),
-                  liquidity: weiToEther(powerInfo.liquidity, this.web3),
-                  isClaim: powerInfo.isClaim
-                },
-                annualizedRate: parseFloat(annualizedRate).toFixed(2)
-              };
-              this.powerDataList.push(tempData);
-            }
+            // if (!powerInfo.isClaim) {
+            const annualizedRate = (powerInfo.power / countedPower) * 100;
+            const tempData = {
+              periodId: item.id,
+              contractAddress: item.address,
+              countedPower: weiToEther(countedPower, this.web3),
+              startTime: startTime,
+              endTime: endTime,
+              powerInfo: {
+                power: weiToEther(powerInfo.power, this.web3),
+                receiveAmount: weiToEther(powerInfo.receiveAmount, this.web3),
+                nodeType: judgeCHNNodeTypeByValue(powerInfo.nodeType),
+                liquidity: weiToEther(powerInfo.liquidity, this.web3),
+                isClaim: powerInfo.isClaim
+              },
+              annualizedRate: parseFloat(annualizedRate).toFixed(2)
+            };
+            this.powerDataList.push(tempData);
+            // }
           }
         });
         await Promise.all(getResult);
