@@ -185,8 +185,12 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2022-11-01 11:00:00 ~ 2022-12-01 11:00:00",
+    powerDuration: "2022-12-01 11:00:00 ~ 2023-01-01 11:00:00",
     rewardsContractAddressList: [
+      {
+        id: 11,
+        address: "0x1d837626425daE2CC3CC6Ff55a2c3e02b4A85353"
+      },
       {
         id: 10,
         address: "0xCc3aE90512f1b1AE276197cfe09F753811fE972a"
@@ -264,8 +268,6 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return "0x3d1d9c27ff3e397139e4f7fbacd5fdfb88580fcd";
-      // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
       return this.$store.state.web3.address;
     },
     chainId() {

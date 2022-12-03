@@ -333,7 +333,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2022-11-01 11:00:00 ~ 2022-12-01 11:00:00",
+    powerDuration: "2022-12-01 11:00:00 ~ 2023-01-01 11:00:00",
     powerContractAddressList: [
       {
         id: 9,
@@ -378,6 +378,10 @@ export default {
     ],
     powerContractAddressListNew: [
       {
+        id: 11,
+        address: "0xB548e84C6d033B2797D18fc76DBadd283769C351"
+      },
+      {
         id: 10,
         address: "0x3108FA5149bB2E801ed263d67f78498c66e10A0b"
       }
@@ -419,8 +423,6 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
-      // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
       return this.$store.state.web3.address;
     },
     chainId() {
