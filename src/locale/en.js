@@ -156,7 +156,8 @@ export default {
   Node: {
     None: "None",
     "Planet node": "Planet node",
-    "Stellar node": "Stellar node"
+    "Stellar node": "Stellar node",
+    "General node": "General node"
   },
   "Choose a forging pool": "Choose a forging pool",
   "Enter the forging amount": "Enter the forging amount",
@@ -204,6 +205,8 @@ export default {
   "Power Phase": "Phase",
   "Power Expect": "",
   "Personal cumulative total accounting strength": "Total Power",
+  "New accumulated calculation power in the current period": "New Power",
+  "Reward ratio of each calculation power": "Reward Ratio",
   "LP quantity of DAO-USDT to be added in the next period":
     "LP quantity of DAO-USDT to be added in the next period",
   "Token Symbol": "Token Symbol",
@@ -233,5 +236,7 @@ export default {
   "Task 8": "Task 8",
 
   "Please change BNB Smart Chain": "Please change BNB Smart Chain",
-  "Function adjustment, open later": "Function adjustment, open later"
+  "Function adjustment, open later": "Function adjustment, open later",
+
+  "New Power Reward": "New Power Reward"
 };

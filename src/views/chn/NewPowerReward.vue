@@ -35,11 +35,11 @@
                   <img :src="require('@/assets/logo.png')" alt="DAO" />
                 </v-avatar>
                 <span class="title font-weight-bold text-h5">
-                  {{ $t("Staking Node Rewards") }}
+                  {{ $t("New Power Reward") }}
                 </span>
               </v-card-title>
               <v-divider></v-divider>
-              <v-card-text v-if="chainId === 56 && rewardsDataList.length > 0">
+              <v-card-text v-if="rewardsDataList.length > 0">
                 <v-card
                   v-for="item in rewardsDataList"
                   :key="item.account"
@@ -47,31 +47,47 @@
                   class="ma-2"
                 >
                   <v-card-title>
-                    {{ $t("Phase") }} {{ item.periodId }} {{ $t("Expect") }}
+                    {{ $t("Power Phase") }}
+                    {{ item.periodId }}
+                    {{ $t("Power Expect") }}
                   </v-card-title>
                   <v-divider class="mx-4"></v-divider>
                   <v-card-text>
                     <p>
-                      {{ $t("Stellar New Quantity") }}：{{
-                        item.rewardsInfo.stellarNewQuantity
+                      {{ $t("Power Duration") }}：{{
+                        item.startTime | parseTime("{y}-{m}-{d}")
+                      }}
+                      ~
+                      {{ item.endTime | parseTime("{y}-{m}-{d}") }}
+                    </p>
+                    <p>
+                      {{ $t("Power Node Status") }}：{{
+                        $t(`Node.${item.rewardsInfo.nodeType}`)
                       }}
                     </p>
                     <p>
-                      {{ $t("Planetary New Quantity") }}：{{
-                        item.rewardsInfo.planetaryNewQuantity
-                      }}
+                      {{
+                        $t("Personal cumulative total accounting strength")
+                      }}：{{ item.rewardsInfo.power | keepNumber }}
+                    </p>
+                    <p>
+                      {{
+                        $t(
+                          "New accumulated calculation power in the current period"
+                        )
+                      }}：{{ item.rewardsInfo.powerIncrement | keepNumber }}
                     </p>
                     <p>
                       {{ $t("Claimable Amount") }} /
                       {{ $t("Claimabled Amount") }}：{{
                         item.rewardsInfo.isClaim
                           ? 0
-                          : item.rewardsInfo.totalRewards
+                          : item.rewardsInfo.rewardDAO
                       }}
                       /
                       {{
                         item.rewardsInfo.isClaim
-                          ? item.rewardsInfo.totalRewards
+                          ? item.rewardsInfo.rewardDAO
                           : 0
                       }}
                       {{ tokenSymbol }}
@@ -81,7 +97,7 @@
                   <v-card-actions
                     class="justify-center"
                     v-if="
-                      item.rewardsInfo.totalRewards > 0 &&
+                      parseFloat(item.rewardsInfo.rewardDAO) > 0 &&
                         !item.rewardsInfo.isClaim
                     "
                   >
@@ -92,7 +108,7 @@
                       @click="handleRelease(item)"
                       :disabled="
                         item.rewardsInfo.isClaim ||
-                          item.rewardsInfo.totalRewards <= 0
+                          parseFloat(item.rewardsInfo.rewardDAO) <= 0
                       "
                     >
                       {{ $t("Claim") }}
@@ -175,70 +191,22 @@
 <script>
 import clip from "@/utils/clipboard";
 import { getContractByABI, weiToEther } from "@/utils/web3";
-import { compare } from "@/filters/index";
+import { judgeCHNNodeTypeByValue, compare, keepNumber } from "@/filters/index";
 // 引入合约 ABI 文件
-import StakingNodeRewards_ABI from "@/constants/contractJson/StakingNodeRewards_abi.json";
+import CHNNewPowerReward_ABI from "@/constants/abi/CHNNewPowerReward_abi.json";
 
 export default {
-  name: "StakingNodeRewards",
+  name: "NewPowerReward",
   data: () => ({
     loading: false,
-    tokenSymbol: "DST",
+    tokenSymbol: "DAO",
     // 算力合约列表
     powerDuration: "2023-02-01 11:00:00 ~ 2023-03-01 11:00:00",
     rewardsContractAddressList: [
-      {
-        id: 13,
-        address: "0xe0ABF0C322F137CF7261e447F70fAcB13dd15fD3"
-      },
-      {
-        id: 12,
-        address: "0xa0521c3b4EF2EB23399d0112aDf9d6f84E48afB0"
-      },
-      {
-        id: 11,
-        address: "0x1d837626425daE2CC3CC6Ff55a2c3e02b4A85353"
-      },
-      {
-        id: 10,
-        address: "0xCc3aE90512f1b1AE276197cfe09F753811fE972a"
-      },
-      {
-        id: 9,
-        address: "0x4d792140ede59611E42cd31c2da059A6a18b52D0"
-      },
-      {
-        id: 8,
-        address: "0x26EDBfB581fE69ad70264835a95f6A05a8E22E80"
-      },
-      {
-        id: 7,
-        address: "0x4079E56FB984cab196f33F45310d6289D755251a"
-      },
-      {
-        id: 6,
-        address: "0xb0B1bE3716386bC0fC4f47B63fB514a39B3e8ACA"
-      },
-      {
-        id: 5,
-        address: "0xd3040c2b56B8e7414Fba2B87f58a22CB61eD7dd9"
-      },
-      {
-        id: 4,
-        address: "0xBFf2F7b02c8bbcb3262cFc29c93AD310053B140C"
-      },
-      {
-        id: 3,
-        address: "0xE32edd74caEd595eE8078EF7fAACd45f53836BBA"
-      },
-      {
-        id: 2,
-        address: "0x226c3f5774798cb79dbec4b6d920b504e840f427"
-      },
-      {
-        id: 1,
-        address: "0x05f1732E87b70480F3CFB6be394b1C1Fd502E1a6"
-      }
+      // {
+      //   id: 12,
+      //   address: "0x2425F7014d3434a3f0f96639c59D03Abef1a27F0"
+      // }
     ],
     // 算力数据列表
     rewardsDataList: [],
@@ -276,10 +244,9 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
+      // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
+      // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
       return this.$store.state.web3.address;
-    },
-    chainId() {
-      return this.$store.state.web3.chainId;
     }
   },
   methods: {
@@ -305,28 +272,34 @@ export default {
         this.loading = true;
         const getResult = this.rewardsContractAddressList.map(async item => {
           const contract = await getContractByABI(
-            StakingNodeRewards_ABI,
+            CHNNewPowerReward_ABI,
             item.address,
             this.web3
           );
           const hasRewardsInfo = await contract.methods
             .hasRewardsInfo(this.address)
             .call();
-          const rewardsInfo = await contract.methods
-            .accountRewardsMap(this.address)
-            .call();
-          const totalRewardsFormat = weiToEther(
-            rewardsInfo.totalRewards,
-            this.web3
-          );
-          if (hasRewardsInfo && parseFloat(totalRewardsFormat) > 0) {
+          if (hasRewardsInfo) {
+            const startTime = await contract.methods.startTime().call();
+            const endTime = await contract.methods.endTime().call();
+            const rewardsInfo = await contract.methods
+              .accountRewardsMap(this.address)
+              .call();
             const tempData = {
               periodId: item.id,
               contractAddress: item.address,
+              startTime: startTime,
+              endTime: endTime,
               rewardsInfo: {
-                stellarNewQuantity: rewardsInfo.stellarNewQuantity,
-                planetaryNewQuantity: rewardsInfo.planetaryNewQuantity,
-                totalRewards: totalRewardsFormat,
+                nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
+                power: weiToEther(rewardsInfo.power, this.web3),
+                powerIncrement: weiToEther(
+                  rewardsInfo.powerIncrement,
+                  this.web3
+                ),
+                rewardDAO: keepNumber(
+                  weiToEther(rewardsInfo.rewardDAO, this.web3)
+                ),
                 isClaim: rewardsInfo.isClaim
               }
             };
@@ -342,11 +315,7 @@ export default {
     handleRelease(record) {
       this.loading = true;
       // 执行合约
-      getContractByABI(
-        StakingNodeRewards_ABI,
-        record.contractAddress,
-        this.web3
-      )
+      getContractByABI(CHNNewPowerReward_ABI, record.contractAddress, this.web3)
         .methods.getRewards()
         .send({ from: this.address })
         .then(() => {

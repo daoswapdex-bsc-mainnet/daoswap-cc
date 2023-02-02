@@ -152,7 +152,8 @@ export default {
   Node: {
     None: "无",
     "Planet node": "行星节点",
-    "Stellar node": "恒星节点"
+    "Stellar node": "恒星节点",
+    "General node": "普通账号"
   },
   "Choose a forging pool": "选择锻造矿池",
   "Enter the forging amount": "输入锻造额度",
@@ -198,6 +199,8 @@ export default {
   "Power Phase": "第",
   "Power Expect": "期",
   "Personal cumulative total accounting strength": "个人累计总算力",
+  "New accumulated calculation power in the current period": "本期新增累计算力",
+  "Reward ratio of each calculation power": "每份算力奖励比例",
   "LP quantity of DAO-USDT to be added in the next period":
     "下期需新增DAO-USDT的LP数量",
   "Token Symbol": "代币",
@@ -227,5 +230,7 @@ export default {
   "Task 8": "任务8",
 
   "Please change BNB Smart Chain": "请切换BSC链",
-  "Function adjustment, open later": "功能调整，稍后开放"
+  "Function adjustment, open later": "功能调整，稍后开放",
+
+  "New Power Reward": "新增算力奖励"
 };
