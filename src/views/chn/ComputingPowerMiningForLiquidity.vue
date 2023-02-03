@@ -96,8 +96,8 @@
                     </p>
                   </v-card-text>
                   <v-divider class="mx-4"></v-divider>
-                  <v-card-actions class="justify-center">
-                    <v-simple-table>
+                  <v-card-actions class="justify-space-between">
+                    <v-simple-table style="width: 100%;">
                       <template v-slot:default>
                         <thead>
                           <tr>
@@ -593,7 +593,8 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      return this.$store.state.web3.address;
+      // return this.$store.state.web3.address;
+      return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },
     chainId() {
       return this.$store.state.web3.chainId;
