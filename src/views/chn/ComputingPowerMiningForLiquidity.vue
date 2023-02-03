@@ -593,8 +593,7 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return this.$store.state.web3.address;
-      return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
+      return this.$store.state.web3.address;
     },
     chainId() {
       return this.$store.state.web3.chainId;
