@@ -201,12 +201,12 @@ export default {
     loading: false,
     tokenSymbol: "DAO",
     // 算力合约列表
-    powerDuration: "2023-02-01 11:00:00 ~ 2023-03-01 11:00:00",
+    powerDuration: "2023-03-01 11:00:00 ~ 2023-04-01 11:00:00",
     rewardsContractAddressList: [
-      // {
-      //   id: 12,
-      //   address: "0x2425F7014d3434a3f0f96639c59D03Abef1a27F0"
-      // }
+      {
+        id: 14,
+        address: "0x6dD42E03517578ec1d69AeA75D80BeEE7b1640DF"
+      }
     ],
     // 算力数据列表
     rewardsDataList: [],
