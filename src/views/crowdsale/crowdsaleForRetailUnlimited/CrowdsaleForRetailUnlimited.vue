@@ -40,7 +40,8 @@
                   width="80%"
                   @click="
                     accountAssets.allowanceAmount &&
-                    accountAssets.allowanceAmount >= accountAssets.balance
+                    parseFloat(accountAssets.allowanceAmount) >=
+                      parseFloat(accountAssets.balance)
                       ? handleCrowdsale()
                       : handleApprove()
                   "
@@ -48,7 +49,8 @@
                 >
                   {{
                     accountAssets.allowanceAmount &&
-                    accountAssets.allowanceAmount >= accountAssets.balance
+                    parseFloat(accountAssets.allowanceAmount) >=
+                      parseFloat(accountAssets.balance)
                       ? $t("Stake")
                       : $t("Approve")
                   }}
