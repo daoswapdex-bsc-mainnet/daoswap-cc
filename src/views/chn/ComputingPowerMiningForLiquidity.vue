@@ -492,7 +492,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2023-04-01 11:00:00 ~ 2023-05-01 11:00:00",
+    powerDuration: "2023-05-01 11:00:00 ~ 2023-06-01 11:00:00",
     powerContractAddressList: [
       {
         id: 9,
@@ -550,6 +550,10 @@ export default {
       }
     ],
     powerContractAddressListNew2: [
+      {
+        id: 16,
+        address: "0x7AE96D04Cf4cEF37be8D6Ab079e79e0ca1808c09"
+      },
       {
         id: 15,
         address: "0x8bFCa6899793C00f3A271b90921c19da5953E1e0"

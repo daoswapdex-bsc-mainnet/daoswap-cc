@@ -201,8 +201,12 @@ export default {
     loading: false,
     tokenSymbol: "DAO",
     // 算力合约列表
-    powerDuration: "2023-04-01 11:00:00 ~ 2023-05-01 11:00:00",
+    powerDuration: "2023-05-01 11:00:00 ~ 2023-06-01 11:00:00",
     rewardsContractAddressList: [
+      {
+        id: 16,
+        address: "0xddaC103e09A553522ADCDaDDB32bE3eAa8Af47F7"
+      },
       {
         id: 15,
         address: "0xA945a9DFdb979b6136DaA40d8C0405c6Dffb9c1a"
@@ -249,7 +253,7 @@ export default {
     },
     address() {
       // return "0x3DdcFc89B4DD2b33d9a8Ca0F60180527E9810D4B";
-      // return "0x7d3dE024dEB70741c6Dfa0FaD57775A47C227AE2";
+      // return "0xec79fe4154cedf8dd81271e79120fd581e837fa0";
       return this.$store.state.web3.address;
     }
   },
