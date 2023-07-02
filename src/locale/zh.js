@@ -232,5 +232,24 @@ export default {
   "Please change BNB Smart Chain": "请切换BSC链",
   "Function adjustment, open later": "功能调整，稍后开放",
 
-  "New Power Reward": "新增算力奖励"
+  "New Power Reward": "新增算力奖励",
+
+  "Query Relation": "查询邀请关系",
+  Relationship: "邀请关系",
+  "Result Count": "结果数量",
+  "Community Relations": "社区关系",
+  None: "无",
+
+  "List Account": "钱包",
+  "List Node Type": "类型",
+  "List Power": "累计算力",
+  "List Power Increment": "新增算力",
+  "Relation Node": {
+    None: "无",
+    "Planet node": "行星",
+    "Stellar node": "恒星",
+    "General node": "普通"
+  },
+  "Relation tips":
+    "社区关系只显示直接邀请，显示的算力为最新一期算力挖矿数据，每月更新。"
 };

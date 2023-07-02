@@ -238,5 +238,24 @@ export default {
   "Please change BNB Smart Chain": "Please change BNB Smart Chain",
   "Function adjustment, open later": "Function adjustment, open later",
 
-  "New Power Reward": "New Power Reward"
+  "New Power Reward": "New Power Reward",
+
+  "Query Relation": "Query Relation",
+  Relationship: "Relationship",
+  "Result Count": "Result Count",
+  "Community Relations": "Community Relations",
+  None: "None",
+
+  "List Account": "Account",
+  "List Node Type": "Type",
+  "List Power": "Power",
+  "List Power Increment": "Power Increment",
+  "Relation Node": {
+    None: "无",
+    "Planet node": "Planet",
+    "Stellar node": "Stellar",
+    "General node": "General"
+  },
+  "Relation tips":
+    "Community relations only display direct invitations, and the displayed computing power is the latest mining data of computing power, which is updated monthly."
 };

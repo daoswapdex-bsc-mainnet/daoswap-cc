@@ -156,7 +156,7 @@ import {
   toChecksumAddress
 } from "@/utils/web3";
 // 引入合约 ABI 文件
-import InviteForRelationship_ABI from "@/constants/contractJson/InviteForRelationship_abi.json";
+import InviteForRelationship_ABI from "@/constants/abi/InviteForRelationship_abi.json";
 
 export default {
   name: "InviteForRelationship",

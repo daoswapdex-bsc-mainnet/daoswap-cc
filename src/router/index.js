@@ -14,6 +14,7 @@ import CrowdsaleForRetailUnlimitedHistory from "../views/crowdsale/crowdsaleForR
 import StakingNodeRewards from "../views/staking-node/StakingNodeRewards.vue";
 import StakingNodeTask8 from "../views/staking-node/StakingNodeTask8.vue";
 import InviteForRelationship from "../views/relationship/InviteForRelationship.vue";
+import RelationshipOfChn from "../views/relationship/RelationshipOfChn.vue";
 
 Vue.use(VueRouter);
 
@@ -107,6 +108,11 @@ const routes = [
         path: "/invite",
         name: "Invite",
         component: InviteForRelationship
+      },
+      {
+        path: "/relationship",
+        name: "Relationship",
+        component: RelationshipOfChn
       },
       {
         path: "*",

@@ -4,6 +4,7 @@ export {
   formatTime,
   formatSeconds,
   formatCountdown,
+  ellipseAddress,
   keepNumber
 } from "@/utils/utilities";
 export { formattedNum } from "./web3";
