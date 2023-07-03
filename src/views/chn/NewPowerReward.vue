@@ -201,8 +201,12 @@ export default {
     loading: false,
     tokenSymbol: "DAO",
     // 算力合约列表
-    powerDuration: "2023-06-01 11:00:00 ~ 2023-07-01 11:00:00",
+    powerDuration: "2023-07-01 11:00:00 ~ 2023-08-01 11:00:00",
     rewardsContractAddressList: [
+      {
+        id: 18,
+        address: "0x4fC65dD651CE5dA54ba2c766589F1896883488Ce"
+      },
       {
         id: 17,
         address: "0x9001a0b8A774fA01a2352A006430EF5E24998dA0"

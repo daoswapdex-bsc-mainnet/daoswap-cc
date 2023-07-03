@@ -492,7 +492,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2023-06-01 11:00:00 ~ 2023-07-01 11:00:00",
+    powerDuration: "2023-07-01 11:00:00 ~ 2023-08-01 11:00:00",
     powerContractAddressList: [
       {
         id: 9,
@@ -550,6 +550,10 @@ export default {
       }
     ],
     powerContractAddressListNew2: [
+      {
+        id: 18,
+        address: "0x9538795a16C4DDD71571Cf354080c64Fcb6DF680"
+      },
       {
         id: 17,
         address: "0xe46dF90664dA35A188765DB534065bDA22539aFB"
@@ -693,13 +697,13 @@ export default {
               endTime: endTime,
               rewardRatio: rewardRatio
             };
-            if (
-              item.address == "0x8bFCa6899793C00f3A271b90921c19da5953E1e0" &&
-              this.address == "0xFEfDF726f16d6666169c8ADb54d0162A19957dA0"
-            ) {
-              tempData.power = "24765.063606857662480177";
-              tempData.powerIncrement = "12455.349774571016714972";
-            }
+            // if (
+            //   item.address == "0x8bFCa6899793C00f3A271b90921c19da5953E1e0" &&
+            //   this.address == "0xFEfDF726f16d6666169c8ADb54d0162A19957dA0"
+            // ) {
+            //   tempData.power = "24765.063606857662480177";
+            //   tempData.powerIncrement = "12455.349774571016714972";
+            // }
             this.powerDataListNew2.push(tempData);
             // }
           }
