@@ -36,10 +36,9 @@
                     <tbody>
                       <template v-if="dataList.length > 0">
                         <tr v-for="item in dataList" :key="item.account">
-                          <td
-                            @click="handleCopy(item.account, $event)"
-                            style="cursor: pointer; text-decoration: underline; color: blue;"
-                          >
+                          <!-- @click="handleCopy(item.account, $event)"
+                          style="cursor: pointer; text-decoration: underline; color: blue;" -->
+                          <td>
                             {{ item.account | ellipseAddress(5) }}
                           </td>
                           <td :style="`color: ${item.nodeTypeColor};`">
