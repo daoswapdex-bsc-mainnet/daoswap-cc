@@ -22,7 +22,7 @@
                         <th class="text-left">
                           {{ $t("List Account") }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" style="min-width: 80px;">
                           {{ $t("List Node Type") }}
                         </th>
                         <th class="text-left">
