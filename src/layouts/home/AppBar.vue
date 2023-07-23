@@ -107,7 +107,6 @@
             >{{ $t("Invite") }}</v-tab
           >
           <v-tab
-            :style="`display: ${isInWhiteList ? 'normal' : 'none'};`"
             to="/relationship"
             :ripple="false"
             class="font-weight-bold"
@@ -182,10 +181,7 @@
           <v-list-item to="/invite">
             <v-list-item-title>{{ $t("Invite") }}</v-list-item-title>
           </v-list-item>
-          <v-list-item
-            to="/relationship"
-            :style="`display: ${isInWhiteList ? 'normal' : 'none'};`"
-          >
+          <v-list-item to="/relationship">
             <v-list-item-title>{{ $t("Relationship") }}</v-list-item-title>
           </v-list-item>
           <v-list-item to="/Whitepaper.pdf" target="_blank">
