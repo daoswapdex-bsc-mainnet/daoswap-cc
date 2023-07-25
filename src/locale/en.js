@@ -251,7 +251,7 @@ export default {
   "List Power": "Power",
   "List Power Increment": "Power Increment",
   "Relation Node": {
-    None: "无",
+    None: "None",
     "Planet node": "Planet",
     "Stellar node": "Stellar",
     "General node": "General"

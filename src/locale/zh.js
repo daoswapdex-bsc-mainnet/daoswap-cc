@@ -248,7 +248,7 @@ export default {
     None: "无",
     "Planet node": "行星",
     "Stellar node": "恒星",
-    "General node": "普通"
+    "General node": "节点"
   },
   "Relation tips":
     "社区关系只显示直接邀请，显示的算力为最新一期算力挖矿数据，每月更新。"

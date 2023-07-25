@@ -98,3 +98,7 @@ export const NODE_TYPE_PLANETARY_MIN_USD_VALUE = JSBI.multiply(
   JSBI.BigInt(1000),
   JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
 ); // 1000
+export const NODE_TYPE_100LP_MIN_USD_VALUE = JSBI.multiply(
+  JSBI.BigInt(100),
+  JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
+); // 100

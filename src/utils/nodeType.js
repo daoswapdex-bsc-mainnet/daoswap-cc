@@ -3,6 +3,7 @@ import {
   USDT_DAO_PAIR_ADDRESS,
   NODE_TYPE_STELLAR_MIN_USD_VALUE,
   NODE_TYPE_PLANETARY_MIN_USD_VALUE,
+  NODE_TYPE_100LP_MIN_USD_VALUE,
   STAKING_LIMIT_FOR_LP_CONTRACT_ADDRESS,
   HECO_STAKING_RECORD_CONTRACT_ADDRESS
 } from "../constants/index";
@@ -74,7 +75,7 @@ export async function getNodeTypeValue(account, web3) {
   }
 
   // 判断比较获取节点类型值
-  let NodeTypeValue = 3;
+  let NodeTypeValue = 0;
   if (JSBI.greaterThanOrEqual(LPAmount, NODE_TYPE_STELLAR_MIN_USD_VALUE)) {
     NodeTypeValue = 1;
   } else if (
@@ -82,6 +83,11 @@ export async function getNodeTypeValue(account, web3) {
     JSBI.greaterThanOrEqual(LPAmount, NODE_TYPE_PLANETARY_MIN_USD_VALUE)
   ) {
     NodeTypeValue = 2;
+  } else if (
+    JSBI.lessThan(LPAmount, NODE_TYPE_PLANETARY_MIN_USD_VALUE) &&
+    JSBI.greaterThanOrEqual(LPAmount, NODE_TYPE_100LP_MIN_USD_VALUE)
+  ) {
+    NodeTypeValue = 3;
   }
 
   return NodeTypeValue;
