@@ -203,7 +203,7 @@ export default {
     address() {
       return this.$store.state.web3.address;
       // return "0xa0137f5F2fA1c0AeA373d286E83EF24d6c657F1D";
-      // return "0x0113fE59a214269110F89c4A224E2527Fcdb7131";
+      // return "0xb60382f61dbbea09a6e76e7e332ba2d26eb3e886";
     },
     chainId() {
       return this.$store.state.web3.chainId;
@@ -247,7 +247,7 @@ export default {
     // 查询算力信息
     async queryPowerInfo() {
       this.dataList = [];
-      if (this.inviteeList.length > 0) {
+      if (this.inviteeList.length > 0 && this.inviteeList.length <= 400) {
         this.loading = true;
         const getResult = this.inviteeList.map(async account => {
           const contract = await getContractByABI(
