@@ -202,9 +202,9 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return this.$store.state.web3.address;
+      return this.$store.state.web3.address;
       // return "0xa0137f5F2fA1c0AeA373d286E83EF24d6c657F1D";
-      return "0x75a2a590507e9ceee70f5eeac1f56a62c1c259ab";
+      // return "0x75a2a590507e9ceee70f5eeac1f56a62c1c259ab";
     },
     chainId() {
       return this.$store.state.web3.chainId;
