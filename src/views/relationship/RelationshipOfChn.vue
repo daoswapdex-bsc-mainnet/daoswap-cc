@@ -153,6 +153,7 @@ import clip from "@/utils/clipboard";
 import { InviteForRelationshipContractAddress } from "@/constants";
 import { getContractByABI, weiToEther } from "@/utils/web3";
 import { judgeCHNNodeTypeByValue, keepNumber } from "@/filters/index";
+import { getNodeTypeValue } from "@/utils/nodeType";
 // 引入合约 ABI 文件
 import InviteForRelationship_ABI from "@/constants/abi/InviteForRelationship_abi.json";
 import CHNPowerMining2_ABI from "@/constants/abi/CHNPowerMining2_abi.json";
@@ -201,9 +202,9 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      return this.$store.state.web3.address;
+      // return this.$store.state.web3.address;
       // return "0xa0137f5F2fA1c0AeA373d286E83EF24d6c657F1D";
-      // return "0xb60382f61dbbea09a6e76e7e332ba2d26eb3e886";
+      return "0x75a2a590507e9ceee70f5eeac1f56a62c1c259ab";
     },
     chainId() {
       return this.$store.state.web3.chainId;
@@ -258,10 +259,19 @@ export default {
           const hasRewardsInfo = await contract.methods
             .hasRewardsInfo(account)
             .call();
+          const nodeTypeValue = await getNodeTypeValue(account, this.web3);
+          let nodeTypeColor = "rgba(0, 0, 0, 0.87)";
+          if (nodeTypeValue == 1) {
+            nodeTypeColor = "red";
+          } else if (nodeTypeValue == 2) {
+            nodeTypeColor = "green";
+          } else if (nodeTypeValue == 3) {
+            nodeTypeColor = "blue";
+          }
           const tempData = {
             account: account,
-            nodeTypeColor: "rgba(0, 0, 0, 0.87)",
-            nodeType: judgeCHNNodeTypeByValue(3),
+            nodeTypeColor: nodeTypeColor,
+            nodeType: judgeCHNNodeTypeByValue(nodeTypeValue),
             power: 0,
             powerIncrement: 0
           };
@@ -269,14 +279,6 @@ export default {
             const rewardsInfo = await contract.methods
               .getRewardsInfo()
               .call({ from: account });
-            if (rewardsInfo.nodeType === "1") {
-              tempData.nodeTypeColor = "red";
-            } else if (rewardsInfo.nodeType === "2") {
-              tempData.nodeTypeColor = "green";
-            } else if (rewardsInfo.nodeType === "3") {
-              tempData.nodeTypeColor = "blue";
-            }
-            tempData.nodeType = judgeCHNNodeTypeByValue(rewardsInfo.nodeType);
             tempData.power = keepNumber(
               weiToEther(rewardsInfo.power, this.web3)
             );
