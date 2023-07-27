@@ -249,12 +249,7 @@ export default {
             accountInfo.certificates.map(item => {
               const tempItem = {
                 title: item.name,
-                image:
-                  this.pathDomain +
-                  item.cid +
-                  "?filename=" +
-                  this.address +
-                  ".png"
+                image: this.pathDomain + item.cid
               };
               this.certificateList.push(tempItem);
             });
