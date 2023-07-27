@@ -15,6 +15,7 @@ import StakingNodeRewards from "../views/staking-node/StakingNodeRewards.vue";
 import StakingNodeTask8 from "../views/staking-node/StakingNodeTask8.vue";
 import InviteForRelationship from "../views/relationship/InviteForRelationship.vue";
 import RelationshipOfChn from "../views/relationship/RelationshipOfChn.vue";
+import Certificate from "../views/certificate/Index.vue";
 
 Vue.use(VueRouter);
 
@@ -113,6 +114,11 @@ const routes = [
         path: "/relationship",
         name: "Relationship",
         component: RelationshipOfChn
+      },
+      {
+        path: "/certificate",
+        name: "Certificate",
+        component: Certificate
       },
       {
         path: "*",

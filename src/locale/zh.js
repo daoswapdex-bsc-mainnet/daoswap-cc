@@ -12,6 +12,8 @@ export default {
   PE: "私募",
   Whitepaper: "白皮书",
   News: "新闻",
+  Certificate: "链上可验凭证",
+  "Verified Credential": "链上可验凭证",
 
   Close: "关闭",
   "No Data": "暂无数据",
@@ -251,5 +253,11 @@ export default {
     "General node": "节点"
   },
   "Relation tips":
-    "社区关系只显示直接邀请，显示的算力为最新一期算力挖矿数据，每月更新。"
+    "社区关系只显示直接邀请，显示的算力为最新一期算力挖矿数据，每月更新。",
+
+  Credential: {
+    name: "凭证",
+    authority: "颁发机构",
+    "Chain URL": "链上信息"
+  }
 };

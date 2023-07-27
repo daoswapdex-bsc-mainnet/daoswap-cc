@@ -12,6 +12,8 @@ export default {
   PE: "PE",
   Whitepaper: "Whitepaper",
   News: "News",
+  Certificate: "Verified Credential",
+  "Verified Credential": "Verified Credential",
 
   Close: "Close",
   "No Data": "No Data",
@@ -257,5 +259,11 @@ export default {
     "General node": "General"
   },
   "Relation tips":
-    "Community relations only display direct invitations, and the displayed computing power is the latest mining data of computing power, which is updated monthly."
+    "Community relations only display direct invitations, and the displayed computing power is the latest mining data of computing power, which is updated monthly.",
+
+  Credential: {
+    name: "Name",
+    authority: "Authority",
+    "Chain URL": "Chain URL"
+  }
 };

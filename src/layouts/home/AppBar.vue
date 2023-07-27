@@ -115,6 +115,15 @@
             >{{ $t("Relationship") }}</v-tab
           >
           <v-tab
+            :style="`display: ${isInWhiteList ? 'normal' : 'none'};`"
+            to="/certificate"
+            :ripple="false"
+            class="font-weight-bold"
+            min-width="96"
+            text
+            >{{ $t("Certificate") }}</v-tab
+          >
+          <v-tab
             to="/Whitepaper.pdf"
             target="_blank"
             :ripple="false"
@@ -183,6 +192,12 @@
           </v-list-item>
           <v-list-item to="/relationship">
             <v-list-item-title>{{ $t("Relationship") }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item
+            to="/certificate"
+            :style="`display: ${isInWhiteList ? 'normal' : 'none'};`"
+          >
+            <v-list-item-title>{{ $t("Certificate") }}</v-list-item-title>
           </v-list-item>
           <v-list-item to="/Whitepaper.pdf" target="_blank">
             <v-list-item-title>{{ $t("Whitepaper") }}</v-list-item-title>
