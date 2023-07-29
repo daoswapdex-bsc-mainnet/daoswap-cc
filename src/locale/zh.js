@@ -256,6 +256,7 @@ export default {
     "社区关系只显示直接邀请，显示的算力为最新一期算力挖矿数据，每月更新。",
 
   Credential: {
+    title: "灵魂绑定通证（SBT）",
     name: "凭证",
     authority: "颁发机构",
     "Chain URL": "链上信息"

@@ -262,6 +262,7 @@ export default {
     "Community relations only display direct invitations, and the displayed computing power is the latest mining data of computing power, which is updated monthly.",
 
   Credential: {
+    title: "Soulbound Token(SBT)",
     name: "Name",
     authority: "Authority",
     "Chain URL": "Chain URL"
