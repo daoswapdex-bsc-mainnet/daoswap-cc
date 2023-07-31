@@ -40,7 +40,7 @@
                       </template>
                     </v-img>
                     <div class="list-item-title">
-                      {{ index + 1 }}
+                      {{ index + 1 }} - {{ item }}
                     </div>
                   </v-col>
                 </v-row>
@@ -317,7 +317,8 @@ export default {
             accountInfo.certificates.map(item => {
               const tempItem = {
                 title: item.name,
-                image: this.pathDomain + item.cid
+                image: this.pathDomain + item.cid,
+                cid: item.cid
               };
               this.certificateList.push(tempItem);
             });

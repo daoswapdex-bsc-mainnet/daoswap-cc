@@ -233,7 +233,11 @@ export default {
     // 获取数据列表
     async getCertificateList() {
       this.certificateList = [];
-      if (this.contractAddress && this.certificateList.length <= 0) {
+      if (
+        this.contractAddress &&
+        !this.loading &&
+        this.certificateList.length <= 0
+      ) {
         this.loading = true;
         const contract = await getContractByABI(
           Certificate_ABI,
@@ -246,13 +250,14 @@ export default {
             .getAccountInfo()
             .call({ from: this.address });
           if (accountInfo.certificates.length > 0) {
-            accountInfo.certificates.map(item => {
+            const getResult = accountInfo.certificates.map(item => {
               const tempItem = {
                 title: item.name,
                 image: this.pathDomain + item.cid
               };
               this.certificateList.push(tempItem);
             });
+            await Promise.all(getResult);
           }
         }
         this.loading = false;
