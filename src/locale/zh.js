@@ -255,6 +255,10 @@ export default {
   "Relation tips":
     "社区关系只显示直接邀请，显示的算力为最新一期算力挖矿数据，每月更新。",
 
+  "Explanation of adding cumulative computing power": "说明",
+  "Added cumulative computing power increase": "增加",
+  "Added cumulative computing power reduction": "减少",
+
   Credential: {
     title: "灵魂绑定通证（SBT）",
     name: "凭证",

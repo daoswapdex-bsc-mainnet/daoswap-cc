@@ -261,6 +261,10 @@ export default {
   "Relation tips":
     "Community relations only display direct invitations, and the displayed computing power is the latest mining data of computing power, which is updated monthly.",
 
+  "Explanation of adding cumulative computing power": "Explanation",
+  "Added cumulative computing power increase": "Increase",
+  "Added cumulative computing power reduction": "Reduction",
+
   Credential: {
     title: "Soulbound Token(SBT)",
     name: "Name",
