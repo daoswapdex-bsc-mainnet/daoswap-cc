@@ -14,13 +14,9 @@
             <v-card-text>
               <v-row align="center">
                 <v-col class="body-1" cols="12">
-                  <p>{{ $t("Rewards Duration") }}：{{ powerDuration }}</p>
+                  <!-- <p>{{ $t("Rewards Duration") }}：{{ powerDuration }}</p> -->
                   <p>
-                    {{
-                      $t(
-                        "Will caculate and airdrop within 3 workdays after the last day."
-                      )
-                    }}
+                    {{ $t("Reward has ended.") }}
                   </p>
                 </v-col>
               </v-row>

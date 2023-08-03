@@ -216,6 +216,7 @@ export default {
   Activities: "Activities",
   "Will caculate and airdrop within 3 workdays after the last day.":
     "Will caculate and airdrop within 3 workdays after the last day.",
+  "Reward has ended.": "Reward has ended.",
 
   "Stake DST": "Stake DST",
   "DST Stake": "DST Stake",

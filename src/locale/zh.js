@@ -210,6 +210,7 @@ export default {
   Activities: "进行中的活动",
   "Will caculate and airdrop within 3 workdays after the last day.":
     "周期结束后，3个工作日内完成统计并空投。",
+  "Reward has ended.": "奖励已结束。",
 
   "Stake DST": "DST质押",
   "DST Stake": "DST质押",
