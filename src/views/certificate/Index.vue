@@ -167,7 +167,7 @@ export default {
     loading: false,
     // 路径前缀
     pathDomain: "https://ipfs.io/ipfs/",
-    contractAddress: "0x7713FB320BD6Fe93580Fe1f3e16D790425ca6647",
+    contractAddress: "0x9c0D79241ab6250EC61FaD803e6c825d06aca211",
     // 证书数据列表
     certificateList: [],
     // 提示框
@@ -253,7 +253,7 @@ export default {
             const getResult = accountInfo.certificates.map(item => {
               const tempItem = {
                 title: item.name,
-                image: this.pathDomain + item.cid
+                image: this.pathDomain + item.cid + "/" + this.address + ".png"
               };
               this.certificateList.push(tempItem);
             });
