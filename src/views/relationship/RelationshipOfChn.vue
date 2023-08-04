@@ -28,7 +28,7 @@
                         <th class="text-left">
                           {{ $t("List Power") }}
                         </th>
-                        <th class="text-left">
+                        <th class="text-left" style="min-width: 160px;">
                           {{ $t("List Power Increment") }}
                         </th>
                       </tr>
@@ -52,11 +52,27 @@
                             }}
                           </td>
                           <td>
-                            {{
-                              parseFloat(item.powerIncrement) > 0
-                                ? item.powerIncrement
-                                : $t("None")
-                            }}
+                            <v-icon
+                              v-if="item.isIncrement == 1"
+                              color="green"
+                              small
+                            >
+                              mdi-arrow-up
+                            </v-icon>
+                            <v-icon
+                              v-else-if="item.isIncrement == 0"
+                              color="red"
+                              small
+                            >
+                              mdi-arrow-down
+                            </v-icon>
+                            <span :style="`color: ${item.isIncrementColor};`">
+                              {{
+                                parseFloat(item.powerIncrement) > 0
+                                  ? item.powerIncrement
+                                  : $t("None")
+                              }}
+                            </span>
                           </td>
                         </tr>
                       </template>
@@ -156,7 +172,7 @@ import { judgeCHNNodeTypeByValue, keepNumber } from "@/filters/index";
 import { getNodeTypeValue } from "@/utils/nodeType";
 // 引入合约 ABI 文件
 import InviteForRelationship_ABI from "@/constants/abi/InviteForRelationship_abi.json";
-import CHNPowerMining2_ABI from "@/constants/abi/CHNPowerMining2_abi.json";
+import CHNPowerMining3_ABI from "@/constants/abi/CHNPowerMining3_abi.json";
 
 export default {
   name: "RelationshipOfChn",
@@ -203,7 +219,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-      // return "0xa0137f5F2fA1c0AeA373d286E83EF24d6c657F1D";
+      // return "0x165fdcc4d3f455b0385b16e8fa8d624ca9ab606f";
       // return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },
     chainId() {
@@ -252,7 +268,7 @@ export default {
         this.loading = true;
         const getResult = this.inviteeList.map(async account => {
           const contract = await getContractByABI(
-            CHNPowerMining2_ABI,
+            CHNPowerMining3_ABI,
             this.powerContractAddress,
             this.web3
           );
@@ -273,7 +289,9 @@ export default {
             nodeTypeColor: nodeTypeColor,
             nodeType: judgeCHNNodeTypeByValue(nodeTypeValue),
             power: 0,
-            powerIncrement: 0
+            powerIncrement: 0,
+            isIncrement: 2,
+            isIncrementColor: "rgba(0, 0, 0, 0.87)"
           };
           if (hasRewardsInfo) {
             const rewardsInfo = await contract.methods
@@ -285,6 +303,12 @@ export default {
             tempData.powerIncrement = keepNumber(
               weiToEther(rewardsInfo.powerIncrement, this.web3)
             );
+            tempData.isIncrement = rewardsInfo.isIncrement;
+            if (rewardsInfo.isIncrement == 1) {
+              tempData.isIncrementColor = "green";
+            } else if (rewardsInfo.isIncrement == 0) {
+              tempData.isIncrementColor = "red";
+            }
           }
           // 追加数据
           this.dataList.push(tempData);
