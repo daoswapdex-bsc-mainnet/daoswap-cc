@@ -212,6 +212,7 @@ export default {
   "LP quantity of DAO-USDT to be added in the next period":
     "LP quantity of DAO-USDT to be added in the next period",
   "Token Symbol": "Token Symbol",
+  "Power Activation": "Activation",
 
   Activities: "Activities",
   "Will caculate and airdrop within 3 workdays after the last day.":
@@ -253,6 +254,7 @@ export default {
   "List Node Type": "Type",
   "List Power": "Power",
   "List Power Increment": "Power Increment",
+  "List Power Activation": "Activation",
   "Relation Node": {
     None: "None",
     "Planet node": "Planet",

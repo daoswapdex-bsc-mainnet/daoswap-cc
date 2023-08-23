@@ -206,6 +206,7 @@ export default {
   "LP quantity of DAO-USDT to be added in the next period":
     "下期需新增DAO-USDT的LP数量",
   "Token Symbol": "代币",
+  "Power Activation": "活跃度",
 
   Activities: "进行中的活动",
   "Will caculate and airdrop within 3 workdays after the last day.":
@@ -247,6 +248,7 @@ export default {
   "List Node Type": "类型",
   "List Power": "累计算力",
   "List Power Increment": "新增算力",
+  "List Power Activation": "活跃度",
   "Relation Node": {
     None: "无",
     "Planet node": "行星",

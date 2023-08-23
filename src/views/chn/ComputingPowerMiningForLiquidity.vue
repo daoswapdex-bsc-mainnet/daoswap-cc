@@ -40,6 +40,224 @@
               </v-card-title>
               <v-divider></v-divider>
               <v-card-text
+                v-if="chainId === 56 && powerDataListNew4.length > 0"
+              >
+                <v-card
+                  v-for="item in powerDataListNew4"
+                  :key="item.account"
+                  :loading="loading"
+                  class="ma-2"
+                >
+                  <v-card-title>
+                    {{ $t("Power Phase") }}
+                    {{ item.periodId }}
+                    {{ $t("Power Expect") }}
+                  </v-card-title>
+                  <v-divider class="mx-4"></v-divider>
+                  <v-card-text>
+                    <p>
+                      {{ $t("Power Duration") }}：{{ item.startTime }}
+                      ~
+                      {{ item.endTime }}
+                    </p>
+                    <p>
+                      {{ $t("Power Node Status") }}：{{
+                        $t(`Node.${item.nodeType}`)
+                      }}
+                    </p>
+                    <p>
+                      {{
+                        $t("Personal cumulative total accounting strength")
+                      }}：{{ item.power | keepNumber }}
+                    </p>
+                    <p>
+                      {{
+                        $t(
+                          "New accumulated calculation power in the current period"
+                        )
+                      }}
+                      <v-dialog v-model="dialogForIsIncrement" width="500">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-icon
+                            color="#93B954"
+                            v-bind="attrs"
+                            v-on="on"
+                            small
+                          >
+                            mdi-help-circle-outline
+                          </v-icon>
+                        </template>
+                        <v-card>
+                          <v-card-title class="text-h5 grey lighten-2">
+                            {{
+                              $t(
+                                "Explanation of adding cumulative computing power"
+                              )
+                            }}
+                          </v-card-title>
+
+                          <v-card-text style="padding-top: 20px;">
+                            <p>
+                              <v-icon color="green">
+                                mdi-arrow-up
+                              </v-icon>
+                              ：
+                              <span>
+                                {{
+                                  $t(
+                                    "Added cumulative computing power increase"
+                                  )
+                                }}
+                              </span>
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              <v-icon color="red">
+                                mdi-arrow-down
+                              </v-icon>
+                              ：
+                              <span>
+                                {{
+                                  $t(
+                                    "Added cumulative computing power reduction"
+                                  )
+                                }}
+                              </span>
+                            </p>
+                          </v-card-text>
+                        </v-card>
+                      </v-dialog>
+                      ：
+                      <v-icon v-if="item.isIncrement > 0" color="green" small>
+                        mdi-arrow-up
+                      </v-icon>
+                      <v-icon v-else color="red" small>
+                        mdi-arrow-down
+                      </v-icon>
+                      <span
+                        :style="
+                          `color: ${item.isIncrement > 0 ? 'green' : 'red'};`
+                        "
+                      >
+                        {{ item.powerIncrement | keepNumber }}
+                      </span>
+                    </p>
+                    <p>
+                      {{ $t("Reward ratio of each calculation power") }}：{{
+                        item.rewardRatio
+                      }}
+                      (20%{{ item.rewardDAO.tokenSymbol }}, 80%{{
+                        item.rewardDST.tokenSymbol
+                      }})
+                    </p>
+                    <p>
+                      {{
+                        $t(
+                          "LP quantity of DAO-USDT to be added in the next period"
+                        )
+                      }}：{{ item.nextStandard }}
+                    </p>
+                    <p>{{ $t("Power Activation") }}：{{ item.activation }}</p>
+                  </v-card-text>
+                  <!-- <v-divider class="mx-4"></v-divider>
+                  <v-card-actions class="justify-space-between">
+                    <v-simple-table style="width: 100%;">
+                      <template v-slot:default>
+                        <thead>
+                          <tr>
+                            <th class="text-left">
+                              {{ $t("Token Symbol") }}
+                            </th>
+                            <th class="text-left">
+                              {{ $t("Claimable Amount") }}
+                            </th>
+                            <th class="text-left">
+                              {{ $t("Claimabled Amount") }}
+                            </th>
+                            <th class="text-left">{{ $t("Operation") }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ item.rewardDAO.tokenSymbol }}</td>
+                            <td>
+                              {{
+                                (item.rewardDAO.isClaim
+                                  ? 0
+                                  : item.rewardDAO.amount) | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                (item.rewardDAO.isClaim
+                                  ? item.rewardDAO.amount
+                                  : 0) | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              <v-btn
+                                v-if="
+                                  !item.rewardDAO.isClaim &&
+                                    item.rewardDAO.isAble
+                                "
+                                small
+                                color="#93B954"
+                                dark
+                                width="80%"
+                                @click="
+                                  handleReleaseNew(
+                                    item.contractAddress,
+                                    item.rewardDAO.token
+                                  )
+                                "
+                              >
+                                {{ $t("Claim") }}
+                              </v-btn>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>{{ item.rewardDST.tokenSymbol }}</td>
+                            <td>
+                              {{
+                                (item.rewardDST.isClaim
+                                  ? 0
+                                  : item.rewardDST.amount) | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                (item.rewardDST.isClaim
+                                  ? item.rewardDST.amount
+                                  : 0) | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              <v-btn
+                                v-if="
+                                  !item.rewardDST.isClaim &&
+                                    item.rewardDST.isAble
+                                "
+                                small
+                                color="#93B954"
+                                dark
+                                width="80%"
+                                @click="
+                                  handleReleaseNew(
+                                    item.contractAddress,
+                                    item.rewardDST.token
+                                  )
+                                "
+                              >
+                                {{ $t("Claim") }}
+                              </v-btn>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-card-actions> -->
+                </v-card>
+              </v-card-text>
+              <v-card-text
                 v-if="chainId === 56 && powerDataListNew3.length > 0"
               >
                 <v-card
@@ -619,7 +837,8 @@
               <v-card-text
                 v-if="
                   chainId !== 56 ||
-                    (powerDataListNew3.length <= 0 &&
+                    (powerDataListNew4.length <= 0 &&
+                      powerDataListNew3.length <= 0 &&
                       powerDataListNew2.length <= 0 &&
                       powerDataListNew.length <= 0 &&
                       powerDataList.length <= 0)
@@ -706,6 +925,7 @@ import ComputingPowerMining_ABI from "@/constants/contractJson/ComputingPowerMin
 import CHNPowerMining_ABI from "@/constants/abi/CHNPowerMining_abi.json";
 import CHNPowerMining2_ABI from "@/constants/abi/CHNPowerMining2_abi.json";
 import CHNPowerMining3_ABI from "@/constants/abi/CHNPowerMining3_abi.json";
+import CHNPowerMining4_ABI from "@/constants/abi/CHNPowerMining4_abi.json";
 
 export default {
   name: "ComputingPowerMiningForLiquidity",
@@ -802,11 +1022,20 @@ export default {
         address: "0xe4fE8b3d1F86296D8573140A6667186bD5c323c4"
       }
     ],
+    powerContractAddressListNew4: [
+      {
+        id: 20,
+        address: "0xC8Ec930c49e56287BdD15668EDE35859C0f7E60e",
+        startTime: "2023-08-01",
+        endTime: "2023-08-23"
+      }
+    ],
     // 算力数据列表
     powerDataList: [],
     powerDataListNew: [],
     powerDataListNew2: [],
     powerDataListNew3: [],
+    powerDataListNew4: [],
     // 提示框
     operationResult: {
       color: "success",
@@ -843,7 +1072,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-      // return "0x2d6df891dc767c058a0e43793023e0b07535a4bd";
+      // return "0xdd5f32f23e03527baa9d71b287336c785bba0057";
     },
     chainId() {
       return this.$store.state.web3.chainId;
@@ -867,10 +1096,71 @@ export default {
     },
     // 获取算力数据
     async getPowerInfo() {
+      await this.getPowerDataListNew4();
       await this.getPowerDataListNew3();
       await this.getPowerDataListNew2();
       await this.getPowerDataListNew();
       await this.getPowerDataList();
+    },
+    // 获取算力数据列表-新版4
+    async getPowerDataListNew4() {
+      if (this.powerContractAddressListNew4.length > 0) {
+        this.powerDataListNew4 = [];
+        this.loading = true;
+        const getResult = this.powerContractAddressListNew4.map(async item => {
+          const contract = await getContractByABI(
+            CHNPowerMining4_ABI,
+            item.address,
+            this.web3
+          );
+          const hasRewardsInfo = await contract.methods
+            .hasRewardsInfo(this.address)
+            .call();
+          if (hasRewardsInfo) {
+            const rewardRatio = await contract.methods.rewardRatio().call();
+            const rewardsInfo = await contract.methods
+              .getRewardsInfo()
+              .call({ from: this.address });
+            const tempData = {
+              periodId: item.id,
+              contractAddress: item.address,
+              nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
+              power: weiToEther(rewardsInfo.power, this.web3),
+              powerIncrement: weiToEther(rewardsInfo.powerIncrement, this.web3),
+              isIncrement: rewardsInfo.isIncrement,
+              nextStandard: rewardsInfo.nextStandard,
+              activation: rewardsInfo.activation,
+              rewardDAO: {
+                token: rewardsInfo.rewardDAO.token,
+                tokenSymbol: rewardsInfo.rewardDAO.tokenSymbol,
+                amount: weiToEther(rewardsInfo.rewardDAO.amount, this.web3),
+                isClaim: rewardsInfo.rewardDAO.isClaim,
+                isAble: JSBI.greaterThan(
+                  JSBI.BigInt(rewardsInfo.rewardDAO.amount),
+                  JSBI.BigInt(0)
+                )
+              },
+              rewardDST: {
+                token: rewardsInfo.rewardDST.token,
+                tokenSymbol: rewardsInfo.rewardDST.tokenSymbol,
+                amount: weiToEther(rewardsInfo.rewardDST.amount, this.web3),
+                isClaim: rewardsInfo.rewardDST.isClaim,
+                isAble: JSBI.greaterThan(
+                  JSBI.BigInt(rewardsInfo.rewardDST.amount),
+                  JSBI.BigInt(0)
+                )
+              },
+              startTime: item.startTime,
+              endTime: item.endTime,
+              rewardRatio: rewardRatio
+            };
+            this.powerDataListNew4.push(tempData);
+          }
+        });
+        await Promise.all(getResult);
+        this.powerDataListNew4.sort(compare("periodId"));
+        this.loading = false;
+      }
     },
     // 获取算力数据列表-新版3
     async getPowerDataListNew3() {

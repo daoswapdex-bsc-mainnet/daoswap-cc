@@ -31,6 +31,9 @@
                         <th class="text-left" style="min-width: 160px;">
                           {{ $t("List Power Increment") }}
                         </th>
+                        <th class="text-left">
+                          {{ $t("List Power Activation") }}
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -73,6 +76,9 @@
                                   : $t("None")
                               }}
                             </span>
+                          </td>
+                          <td>
+                            {{ item.activation }}
                           </td>
                         </tr>
                       </template>
@@ -172,14 +178,14 @@ import { judgeCHNNodeTypeByValue, keepNumber } from "@/filters/index";
 import { getNodeTypeValue } from "@/utils/nodeType";
 // 引入合约 ABI 文件
 import InviteForRelationship_ABI from "@/constants/abi/InviteForRelationship_abi.json";
-import CHNPowerMining3_ABI from "@/constants/abi/CHNPowerMining3_abi.json";
+import CHNPowerMining_ABI from "@/constants/abi/CHNPowerMining4_abi.json";
 
 export default {
   name: "RelationshipOfChn",
   data: () => ({
     contractAddress: InviteForRelationshipContractAddress,
     // 最新一期算力合约地址，持续更新最新地址
-    powerContractAddress: "0xe4fE8b3d1F86296D8573140A6667186bD5c323c4",
+    powerContractAddress: "0xC8Ec930c49e56287BdD15668EDE35859C0f7E60e",
     loading: false,
     // 查询数据
     inviteeList: [],
@@ -219,7 +225,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-      // return "0x165fdcc4d3f455b0385b16e8fa8d624ca9ab606f";
+      // return "0x0697eae394c19f54a7ba9c3a88e51063adefba36";
       // return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },
     chainId() {
@@ -268,7 +274,7 @@ export default {
         this.loading = true;
         const getResult = this.inviteeList.map(async account => {
           const contract = await getContractByABI(
-            CHNPowerMining3_ABI,
+            CHNPowerMining_ABI,
             this.powerContractAddress,
             this.web3
           );
@@ -291,7 +297,8 @@ export default {
             power: 0,
             powerIncrement: 0,
             isIncrement: 2,
-            isIncrementColor: "rgba(0, 0, 0, 0.87)"
+            isIncrementColor: "rgba(0, 0, 0, 0.87)",
+            activation: 0
           };
           if (hasRewardsInfo) {
             const rewardsInfo = await contract.methods
@@ -309,6 +316,7 @@ export default {
             } else if (rewardsInfo.isIncrement == 0) {
               tempData.isIncrementColor = "red";
             }
+            tempData.activation = rewardsInfo.activation;
           }
           // 追加数据
           this.dataList.push(tempData);
