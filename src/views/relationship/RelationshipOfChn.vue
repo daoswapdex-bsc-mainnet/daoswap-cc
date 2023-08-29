@@ -174,7 +174,7 @@
 import clip from "@/utils/clipboard";
 import { InviteForRelationshipContractAddress } from "@/constants";
 import { getContractByABI, weiToEther } from "@/utils/web3";
-import { judgeCHNNodeTypeByValue, keepNumber } from "@/filters/index";
+import { judgeCHNNodeTypeByValue, keepNumber, compare } from "@/filters/index";
 import { getNodeTypeValue } from "@/utils/nodeType";
 // 引入合约 ABI 文件
 import InviteForRelationship_ABI from "@/constants/abi/InviteForRelationship_abi.json";
@@ -225,7 +225,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-      // return "0x0697eae394c19f54a7ba9c3a88e51063adefba36";
+      // return "0x2E9D1f134a3a705670ccB80dDe79f2Eac0a8a6ef";
       // return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },
     chainId() {
@@ -322,6 +322,7 @@ export default {
           this.dataList.push(tempData);
         });
         await Promise.all(getResult);
+        this.dataList.sort(compare("power"));
         this.loading = false;
       }
     }
