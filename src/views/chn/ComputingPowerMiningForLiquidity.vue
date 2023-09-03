@@ -256,6 +256,87 @@
                               </v-btn>
                             </td>
                           </tr>
+                          <!-- 分隔符 -->
+                          <tr>
+                            <th class="text-center" colspan="4">2.0</th>
+                          </tr>
+                          <!-- 分隔符 -->
+                          <tr>
+                            <td>{{ item.rewardDAOForReissue.tokenSymbol }}</td>
+                            <td>
+                              {{
+                                (item.rewardDAOForReissue.isClaim
+                                  ? 0
+                                  : item.rewardDAOForReissue.amount)
+                                  | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                (item.rewardDAOForReissue.isClaim
+                                  ? item.rewardDAOForReissue.amount
+                                  : 0) | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              <v-btn
+                                v-if="
+                                  !item.rewardDAOForReissue.isClaim &&
+                                    item.rewardDAOForReissue.isAble
+                                "
+                                small
+                                color="#93B954"
+                                dark
+                                width="80%"
+                                @click="
+                                  handleReleaseNew(
+                                    item.reissueContractAddress,
+                                    item.rewardDAOForReissue.token
+                                  )
+                                "
+                              >
+                                {{ $t("Claim") }}
+                              </v-btn>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>{{ item.rewardDSTForReissue.tokenSymbol }}</td>
+                            <td>
+                              {{
+                                (item.rewardDSTForReissue.isClaim
+                                  ? 0
+                                  : item.rewardDSTForReissue.amount)
+                                  | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                (item.rewardDSTForReissue.isClaim
+                                  ? item.rewardDSTForReissue.amount
+                                  : 0) | keepNumber
+                              }}
+                            </td>
+                            <td>
+                              <v-btn
+                                v-if="
+                                  !item.rewardDSTForReissue.isClaim &&
+                                    item.rewardDSTForReissue.isAble
+                                "
+                                small
+                                color="#93B954"
+                                dark
+                                width="80%"
+                                @click="
+                                  handleReleaseNew(
+                                    item.reissueContractAddress,
+                                    item.rewardDSTForReissue.token
+                                  )
+                                "
+                              >
+                                {{ $t("Claim") }}
+                              </v-btn>
+                            </td>
+                          </tr>
                         </tbody>
                       </template>
                     </v-simple-table>
@@ -1032,7 +1113,8 @@ export default {
         id: 20,
         address: "0x29cAE5e5BF321d478Bd6C188fe2D8dBBB8309018",
         startTime: "2023-08-01",
-        endTime: "2023-09-01"
+        endTime: "2023-09-01",
+        reissueAddress: "0xd63dBb75130638702231298d9B6520D2FBcA10af"
       }
     ],
     // 算力数据列表
@@ -1077,7 +1159,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-      // return "0xFA3C2Dc2c5D24E8BeF9B23914f258f33688874F5";
+      // return "0xf38db654F3C391BD30689Fb2eB1d95D2601b4210";
     },
     chainId() {
       return this.$store.state.web3.chainId;
@@ -1126,9 +1208,55 @@ export default {
             const rewardsInfo = await contract.methods
               .getRewardsInfo()
               .call({ from: this.address });
+
+            // 获取补发奖励数据
+            let rewardDAOForReissue = null;
+            let rewardDSTForReissue = null;
+            const contractForReissue = await getContractByABI(
+              CHNPowerMining4_ABI,
+              item.reissueAddress,
+              this.web3
+            );
+            const hasRewardsInfoForReissue = await contractForReissue.methods
+              .hasRewardsInfo(this.address)
+              .call();
+            if (hasRewardsInfoForReissue) {
+              const rewardsInfoForReissue = await contractForReissue.methods
+                .getRewardsInfo()
+                .call({ from: this.address });
+              rewardDAOForReissue = {
+                token: rewardsInfoForReissue.rewardDAO.token,
+                tokenSymbol: rewardsInfoForReissue.rewardDAO.tokenSymbol,
+                amount: weiToEther(
+                  rewardsInfoForReissue.rewardDAO.amount,
+                  this.web3
+                ),
+                isClaim: rewardsInfoForReissue.rewardDAO.isClaim,
+                isAble: JSBI.greaterThan(
+                  JSBI.BigInt(rewardsInfoForReissue.rewardDAO.amount),
+                  JSBI.BigInt(0)
+                )
+              };
+              rewardDSTForReissue = {
+                token: rewardsInfoForReissue.rewardDST.token,
+                tokenSymbol: rewardsInfoForReissue.rewardDST.tokenSymbol,
+                amount: weiToEther(
+                  rewardsInfoForReissue.rewardDST.amount,
+                  this.web3
+                ),
+                isClaim: rewardsInfoForReissue.rewardDST.isClaim,
+                isAble: JSBI.greaterThan(
+                  JSBI.BigInt(rewardsInfoForReissue.rewardDST.amount),
+                  JSBI.BigInt(0)
+                )
+              };
+            }
+            // 补发奖励数据
+
             const tempData = {
               periodId: item.id,
               contractAddress: item.address,
+              reissueContractAddress: item.reissueAddress,
               nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
               power: weiToEther(rewardsInfo.power, this.web3),
               powerExpandReality: weiToEther(
@@ -1159,6 +1287,8 @@ export default {
                   JSBI.BigInt(0)
                 )
               },
+              rewardDAOForReissue: rewardDAOForReissue,
+              rewardDSTForReissue: rewardDSTForReissue,
               startTime: item.startTime,
               endTime: item.endTime,
               rewardRatio: rewardRatio
