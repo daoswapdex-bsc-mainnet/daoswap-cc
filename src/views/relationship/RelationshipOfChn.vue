@@ -185,7 +185,7 @@ export default {
   data: () => ({
     contractAddress: InviteForRelationshipContractAddress,
     // 最新一期算力合约地址，持续更新最新地址
-    powerContractAddress: "0xC8Ec930c49e56287BdD15668EDE35859C0f7E60e",
+    powerContractAddress: "0x29cAE5e5BF321d478Bd6C188fe2D8dBBB8309018",
     loading: false,
     // 查询数据
     inviteeList: [],
@@ -225,6 +225,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
+      // return "0xFA3C2Dc2c5D24E8BeF9B23914f258f33688874F5";
       // return "0x2E9D1f134a3a705670ccB80dDe79f2Eac0a8a6ef";
       // return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },

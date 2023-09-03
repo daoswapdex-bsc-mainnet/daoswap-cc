@@ -181,7 +181,22 @@
           },
           {
             "internalType": "uint256",
+            "name": "genesisType",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
             "name": "power",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "powerExpandReality",
             "type": "uint256"
           },
           {
@@ -263,7 +278,22 @@
           },
           {
             "internalType": "uint256",
+            "name": "genesisType",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
             "name": "power",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "powerExpandReality",
             "type": "uint256"
           },
           {
@@ -388,7 +418,22 @@
           },
           {
             "internalType": "uint256",
+            "name": "genesisType",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "stakedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
             "name": "power",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "powerExpandReality",
             "type": "uint256"
           },
           {

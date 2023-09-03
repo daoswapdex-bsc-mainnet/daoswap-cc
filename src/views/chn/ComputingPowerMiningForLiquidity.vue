@@ -72,6 +72,11 @@
                     </p>
                     <p>
                       {{
+                        $t("Actual reward cumulative total computing power")
+                      }}：{{ item.powerExpandReality | keepNumber }}
+                    </p>
+                    <p>
+                      {{
                         $t(
                           "New accumulated calculation power in the current period"
                         )
@@ -158,7 +163,7 @@
                     </p>
                     <p>{{ $t("Power Activation") }}：{{ item.activation }}</p>
                   </v-card-text>
-                  <!-- <v-divider class="mx-4"></v-divider>
+                  <v-divider class="mx-4"></v-divider>
                   <v-card-actions class="justify-space-between">
                     <v-simple-table style="width: 100%;">
                       <template v-slot:default>
@@ -254,7 +259,7 @@
                         </tbody>
                       </template>
                     </v-simple-table>
-                  </v-card-actions> -->
+                  </v-card-actions>
                 </v-card>
               </v-card-text>
               <v-card-text
@@ -933,7 +938,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2023-08-01 11:00:00 ~ 2023-09-01 11:00:00",
+    powerDuration: "2023-09-01 11:00:00 ~ 2023-10-01 11:00:00",
     powerContractAddressList: [
       {
         id: 9,
@@ -1025,9 +1030,9 @@ export default {
     powerContractAddressListNew4: [
       {
         id: 20,
-        address: "0xC8Ec930c49e56287BdD15668EDE35859C0f7E60e",
+        address: "0x29cAE5e5BF321d478Bd6C188fe2D8dBBB8309018",
         startTime: "2023-08-01",
-        endTime: "2023-08-23"
+        endTime: "2023-09-01"
       }
     ],
     // 算力数据列表
@@ -1072,7 +1077,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
-      // return "0xdd5f32f23e03527baa9d71b287336c785bba0057";
+      // return "0xFA3C2Dc2c5D24E8BeF9B23914f258f33688874F5";
     },
     chainId() {
       return this.$store.state.web3.chainId;
@@ -1126,6 +1131,10 @@ export default {
               contractAddress: item.address,
               nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
               power: weiToEther(rewardsInfo.power, this.web3),
+              powerExpandReality: weiToEther(
+                rewardsInfo.powerExpandReality,
+                this.web3
+              ),
               powerIncrement: weiToEther(rewardsInfo.powerIncrement, this.web3),
               isIncrement: rewardsInfo.isIncrement,
               nextStandard: rewardsInfo.nextStandard,

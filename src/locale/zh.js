@@ -201,6 +201,7 @@ export default {
   "Power Phase": "第",
   "Power Expect": "期",
   "Personal cumulative total accounting strength": "个人累计总算力",
+  "Actual reward cumulative total computing power": "实际奖励累积总算力",
   "New accumulated calculation power in the current period": "本期新增累计算力",
   "Reward ratio of each calculation power": "每份算力奖励比例",
   "LP quantity of DAO-USDT to be added in the next period":

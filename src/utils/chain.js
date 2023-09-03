@@ -6,7 +6,7 @@ const supportedChains = [
     network: "bsc-mainnet",
     chain_id: 56,
     network_id: 56,
-    rpc_url: "https://bsc-dataseed1.binance.org",
+    rpc_url: "https://bsc-dataseed2.bnbchain.org",
     native_currency: {
       symbol: "BNB",
       name: "BSC Chain",
