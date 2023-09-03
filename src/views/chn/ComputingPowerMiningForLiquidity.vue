@@ -257,11 +257,16 @@
                             </td>
                           </tr>
                           <!-- 分隔符 -->
-                          <tr>
+                          <tr
+                            v-if="
+                              item.rewardDAOForReissue ||
+                                item.rewardDSTForReissue
+                            "
+                          >
                             <th class="text-center" colspan="4">2.0</th>
                           </tr>
                           <!-- 分隔符 -->
-                          <tr>
+                          <tr v-if="item.rewardDAOForReissue">
                             <td>{{ item.rewardDAOForReissue.tokenSymbol }}</td>
                             <td>
                               {{
@@ -299,7 +304,7 @@
                               </v-btn>
                             </td>
                           </tr>
-                          <tr>
+                          <tr v-if="item.rewardDSTForReissue">
                             <td>{{ item.rewardDSTForReissue.tokenSymbol }}</td>
                             <td>
                               {{
@@ -1159,6 +1164,7 @@ export default {
     },
     address() {
       return this.$store.state.web3.address;
+      // return "0xE86ff1a34AB87c2e2720Cfe41Be2dCB47FA155Cf";
       // return "0xf38db654F3C391BD30689Fb2eB1d95D2601b4210";
     },
     chainId() {
