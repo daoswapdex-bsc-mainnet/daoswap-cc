@@ -75,7 +75,7 @@
                         $t("Actual reward cumulative total computing power")
                       }}：{{ item.powerExpandReality | keepNumber }}
                     </p>
-                    <p>
+                    <p v-if="parseFloat(item.periodId) <= 20">
                       {{
                         $t(
                           "New accumulated calculation power in the current period"
