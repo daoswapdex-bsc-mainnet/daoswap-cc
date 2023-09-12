@@ -1115,6 +1115,13 @@ export default {
     ],
     powerContractAddressListNew4: [
       {
+        id: 20.1,
+        address: "0xe1801a9D68A55468E1743592cc20523E2f1cba35",
+        startTime: "2023-08-01",
+        endTime: "2023-09-01",
+        reissueAddress: ""
+      },
+      {
         id: 20,
         address: "0x29cAE5e5BF321d478Bd6C188fe2D8dBBB8309018",
         startTime: "2023-08-01",
@@ -1218,47 +1225,48 @@ export default {
             // 获取补发奖励数据
             let rewardDAOForReissue = null;
             let rewardDSTForReissue = null;
-            const contractForReissue = await getContractByABI(
-              CHNPowerMining4_ABI,
-              item.reissueAddress,
-              this.web3
-            );
-            const hasRewardsInfoForReissue = await contractForReissue.methods
-              .hasRewardsInfo(this.address)
-              .call();
-            if (hasRewardsInfoForReissue) {
-              const rewardsInfoForReissue = await contractForReissue.methods
-                .getRewardsInfo()
-                .call({ from: this.address });
-              rewardDAOForReissue = {
-                token: rewardsInfoForReissue.rewardDAO.token,
-                tokenSymbol: rewardsInfoForReissue.rewardDAO.tokenSymbol,
-                amount: weiToEther(
-                  rewardsInfoForReissue.rewardDAO.amount,
-                  this.web3
-                ),
-                isClaim: rewardsInfoForReissue.rewardDAO.isClaim,
-                isAble: JSBI.greaterThan(
-                  JSBI.BigInt(rewardsInfoForReissue.rewardDAO.amount),
-                  JSBI.BigInt(0)
-                )
-              };
-              rewardDSTForReissue = {
-                token: rewardsInfoForReissue.rewardDST.token,
-                tokenSymbol: rewardsInfoForReissue.rewardDST.tokenSymbol,
-                amount: weiToEther(
-                  rewardsInfoForReissue.rewardDST.amount,
-                  this.web3
-                ),
-                isClaim: rewardsInfoForReissue.rewardDST.isClaim,
-                isAble: JSBI.greaterThan(
-                  JSBI.BigInt(rewardsInfoForReissue.rewardDST.amount),
-                  JSBI.BigInt(0)
-                )
-              };
+            if (item.reissueAddress) {
+              const contractForReissue = await getContractByABI(
+                CHNPowerMining4_ABI,
+                item.reissueAddress,
+                this.web3
+              );
+              const hasRewardsInfoForReissue = await contractForReissue.methods
+                .hasRewardsInfo(this.address)
+                .call();
+              if (hasRewardsInfoForReissue) {
+                const rewardsInfoForReissue = await contractForReissue.methods
+                  .getRewardsInfo()
+                  .call({ from: this.address });
+                rewardDAOForReissue = {
+                  token: rewardsInfoForReissue.rewardDAO.token,
+                  tokenSymbol: rewardsInfoForReissue.rewardDAO.tokenSymbol,
+                  amount: weiToEther(
+                    rewardsInfoForReissue.rewardDAO.amount,
+                    this.web3
+                  ),
+                  isClaim: rewardsInfoForReissue.rewardDAO.isClaim,
+                  isAble: JSBI.greaterThan(
+                    JSBI.BigInt(rewardsInfoForReissue.rewardDAO.amount),
+                    JSBI.BigInt(0)
+                  )
+                };
+                rewardDSTForReissue = {
+                  token: rewardsInfoForReissue.rewardDST.token,
+                  tokenSymbol: rewardsInfoForReissue.rewardDST.tokenSymbol,
+                  amount: weiToEther(
+                    rewardsInfoForReissue.rewardDST.amount,
+                    this.web3
+                  ),
+                  isClaim: rewardsInfoForReissue.rewardDST.isClaim,
+                  isAble: JSBI.greaterThan(
+                    JSBI.BigInt(rewardsInfoForReissue.rewardDST.amount),
+                    JSBI.BigInt(0)
+                  )
+                };
+              }
             }
             // 补发奖励数据
-
             const tempData = {
               periodId: item.id,
               contractAddress: item.address,
