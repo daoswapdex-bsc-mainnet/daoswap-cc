@@ -75,7 +75,7 @@
                         $t("Actual reward cumulative total computing power")
                       }}：{{ item.powerExpandReality | keepNumber }}
                     </p>
-                    <p v-if="parseFloat(item.periodId) <= 20">
+                    <p v-if="parseFloat(item.periodId) != 20.1">
                       {{
                         $t(
                           "New accumulated calculation power in the current period"
@@ -163,8 +163,11 @@
                     </p>
                     <p>{{ $t("Power Activation") }}：{{ item.activation }}</p>
                   </v-card-text>
-                  <v-divider class="mx-4"></v-divider>
-                  <v-card-actions class="justify-space-between">
+                  <v-divider v-if="item.isAllowClaim" class="mx-4"></v-divider>
+                  <v-card-actions
+                    v-if="item.isAllowClaim"
+                    class="justify-space-between"
+                  >
                     <v-simple-table style="width: 100%;">
                       <template v-slot:default>
                         <thead>
@@ -1115,18 +1118,28 @@ export default {
     ],
     powerContractAddressListNew4: [
       {
+        id: 21,
+        address: "0x71230F06F8D7fbfC7CCF09A62B5AFbd21B9a6638",
+        startTime: "2023-09-01",
+        endTime: "2023-10-01",
+        reissueAddress: "",
+        isAllowClaim: false
+      },
+      {
         id: 20.1,
         address: "0xe1801a9D68A55468E1743592cc20523E2f1cba35",
         startTime: "2023-08-01",
         endTime: "2023-09-01",
-        reissueAddress: ""
+        reissueAddress: "",
+        isAllowClaim: true
       },
       {
         id: 20,
         address: "0x29cAE5e5BF321d478Bd6C188fe2D8dBBB8309018",
         startTime: "2023-08-01",
         endTime: "2023-09-01",
-        reissueAddress: "0xd63dBb75130638702231298d9B6520D2FBcA10af"
+        reissueAddress: "0xd63dBb75130638702231298d9B6520D2FBcA10af",
+        isAllowClaim: true
       }
     ],
     // 算力数据列表
@@ -1270,6 +1283,7 @@ export default {
             const tempData = {
               periodId: item.id,
               contractAddress: item.address,
+              isAllowClaim: item.isAllowClaim,
               reissueContractAddress: item.reissueAddress,
               nodeType: judgeCHNNodeTypeByValue(rewardsInfo.nodeType),
               power: weiToEther(rewardsInfo.power, this.web3),

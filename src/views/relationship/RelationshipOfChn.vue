@@ -185,7 +185,7 @@ export default {
   data: () => ({
     contractAddress: InviteForRelationshipContractAddress,
     // 最新一期算力合约地址，持续更新最新地址
-    powerContractAddress: "0x29cAE5e5BF321d478Bd6C188fe2D8dBBB8309018",
+    powerContractAddress: "0x71230F06F8D7fbfC7CCF09A62B5AFbd21B9a6638",
     loading: false,
     // 查询数据
     inviteeList: [],
