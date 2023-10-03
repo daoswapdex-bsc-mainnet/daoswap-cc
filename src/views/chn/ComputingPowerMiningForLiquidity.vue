@@ -1027,7 +1027,7 @@ export default {
     loading: false,
     tokenSymbol: "DST",
     // 算力合约列表
-    powerDuration: "2023-09-01 11:00:00 ~ 2023-10-01 11:00:00",
+    powerDuration: "2023-10-01 11:00:00 ~ 2023-11-01 11:00:00",
     powerContractAddressList: [
       {
         id: 9,
@@ -1119,11 +1119,11 @@ export default {
     powerContractAddressListNew4: [
       {
         id: 21,
-        address: "0x71230F06F8D7fbfC7CCF09A62B5AFbd21B9a6638",
+        address: "0xDA27df127f5e381dC0256276eDCD5B84551B5675",
         startTime: "2023-09-01",
         endTime: "2023-10-01",
         reissueAddress: "",
-        isAllowClaim: false
+        isAllowClaim: true
       },
       {
         id: 20.1,
