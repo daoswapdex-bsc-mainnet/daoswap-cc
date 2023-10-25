@@ -1118,6 +1118,14 @@ export default {
     ],
     powerContractAddressListNew4: [
       {
+        id: 22,
+        address: "0x89d01cccc5444ea721c8afb2538fce03abd2f602",
+        startTime: "2023-10-01",
+        endTime: "2023-11-01",
+        reissueAddress: "",
+        isAllowClaim: false
+      },
+      {
         id: 21.1,
         address: "0x5C8d0a86d1B815be7d7441c7A78Ca50889b694f5",
         startTime: "2023-09-01",
@@ -1193,7 +1201,7 @@ export default {
     address() {
       return this.$store.state.web3.address;
       // return "0xE86ff1a34AB87c2e2720Cfe41Be2dCB47FA155Cf";
-      // return "0xf38db654F3C391BD30689Fb2eB1d95D2601b4210";
+      // return "0x93f98376BbE7EfFde14A0164381974253a7Ebf69";
     },
     chainId() {
       return this.$store.state.web3.chainId;
