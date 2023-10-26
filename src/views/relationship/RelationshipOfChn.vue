@@ -19,7 +19,7 @@
                   <template v-slot:default>
                     <thead>
                       <tr>
-                        <th class="text-left">
+                        <th class="text-left" style="min-width: 160px;">
                           {{ $t("List Account") }}
                         </th>
                         <th class="text-left" style="min-width: 80px;">
@@ -42,7 +42,11 @@
                           <!-- @click="handleCopy(item.account, $event)"
                           style="cursor: pointer; text-decoration: underline; color: blue;" -->
                           <td>
-                            {{ item.account | ellipseAddress(5) }}
+                            <span>{{ item.account | ellipseAddress(5) }}</span>
+                            <v-icon v-if="item.isHasReward" color="green" small>
+                              mdi-trophy
+                            </v-icon>
+                            <!-- ({{ item.isHasReward }}) -->
                           </td>
                           <td :style="`color: ${item.nodeTypeColor};`">
                             {{ $t(`Relation Node.${item.nodeType}`) }}
@@ -171,6 +175,7 @@
 </template>
 
 <script>
+import { JSBI } from "@/utils/jsbi";
 import clip from "@/utils/clipboard";
 import { InviteForRelationshipContractAddress } from "@/constants";
 import { getContractByABI, weiToEther } from "@/utils/web3";
@@ -224,9 +229,9 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      return this.$store.state.web3.address;
+      // return this.$store.state.web3.address;
       // return "0x93f98376BbE7EfFde14A0164381974253a7Ebf69";
-      // return "0x2E9D1f134a3a705670ccB80dDe79f2Eac0a8a6ef";
+      return "0x2e9d1f134a3a705670ccb80dde79f2eac0a8a6ef";
       // return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },
     chainId() {
@@ -299,7 +304,8 @@ export default {
             powerIncrement: 0,
             isIncrement: 2,
             isIncrementColor: "rgba(0, 0, 0, 0.87)",
-            activation: 0
+            activation: 0,
+            isHasReward: false
           };
           if (hasRewardsInfo) {
             const rewardsInfo = await contract.methods
@@ -317,6 +323,10 @@ export default {
             } else if (rewardsInfo.isIncrement == 0) {
               tempData.isIncrementColor = "red";
             }
+            tempData.isHasReward = JSBI.greaterThan(
+              JSBI.BigInt(rewardsInfo.rewardDAO.amount),
+              JSBI.BigInt(0)
+            );
             tempData.activation = rewardsInfo.activation;
           }
           // 追加数据
