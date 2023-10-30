@@ -263,6 +263,9 @@ export default {
   "Added cumulative computing power increase": "增加",
   "Added cumulative computing power reduction": "减少",
 
+  "Note: If the wallet has a green dot mark, it indicates that there is a reward for the current period's computing power":
+    "注释：钱包有绿点标识的，表明当期算力有奖励",
+
   Credential: {
     title: "灵魂绑定通证（SBT）",
     name: "凭证",

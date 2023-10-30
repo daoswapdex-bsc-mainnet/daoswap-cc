@@ -14,12 +14,25 @@
                 </span>
               </v-card-title>
               <v-divider></v-divider>
+              <v-card-text>
+                <v-row align="center">
+                  <v-col class="body-1" cols="12" style="color: red;">
+                    <!-- <v-icon color="green" large> mdi-circle-small </v-icon> -->
+                    {{
+                      $t(
+                        "Note: If the wallet has a green dot mark, it indicates that there is a reward for the current period's computing power"
+                      )
+                    }}
+                  </v-col>
+                </v-row>
+              </v-card-text>
+              <v-divider></v-divider>
               <template v-if="chainId === 56 && contractAddress">
                 <v-simple-table style="width: 100%;">
                   <template v-slot:default>
                     <thead>
                       <tr>
-                        <th class="text-left" style="min-width: 160px;">
+                        <th class="text-left" style="min-width: 180px;">
                           {{ $t("List Account") }}
                         </th>
                         <th class="text-left" style="min-width: 80px;">
@@ -43,8 +56,9 @@
                           style="cursor: pointer; text-decoration: underline; color: blue;" -->
                           <td>
                             <span>{{ item.account | ellipseAddress(5) }}</span>
-                            <v-icon v-if="item.isHasReward" color="green" small>
-                              mdi-trophy
+                            <v-icon v-if="item.isHasReward" color="green" large>
+                              <!-- mdi-trophy -->
+                              mdi-circle-small
                             </v-icon>
                             <!-- ({{ item.isHasReward }}) -->
                           </td>
@@ -229,9 +243,9 @@ export default {
       return this.$store.state.web3.web3;
     },
     address() {
-      // return this.$store.state.web3.address;
+      return this.$store.state.web3.address;
       // return "0x93f98376BbE7EfFde14A0164381974253a7Ebf69";
-      return "0x2e9d1f134a3a705670ccb80dde79f2eac0a8a6ef";
+      // return "0x2e9d1f134a3a705670ccb80dde79f2eac0a8a6ef";
       // return "0x7d3de024deb70741c6dfa0fad57775a47c227ae2";
     },
     chainId() {

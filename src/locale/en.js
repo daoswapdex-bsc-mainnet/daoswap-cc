@@ -269,6 +269,9 @@ export default {
   "Added cumulative computing power increase": "Increase",
   "Added cumulative computing power reduction": "Reduction",
 
+  "Note: If the wallet has a green dot mark, it indicates that there is a reward for the current period's computing power":
+    "Note: If the wallet has a green dot mark, it indicates that there is a reward for the current period's computing power",
+
   Credential: {
     title: "Soulbound Token(SBT)",
     name: "Name",
