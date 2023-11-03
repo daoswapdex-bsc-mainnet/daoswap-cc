@@ -1119,11 +1119,11 @@ export default {
     powerContractAddressListNew4: [
       {
         id: 22,
-        address: "0x89d01cccc5444ea721c8afb2538fce03abd2f602",
+        address: "0x623B7C7D4Ea5dD58f055cF5Dfa0a00529D7DCeC1",
         startTime: "2023-10-01",
         endTime: "2023-11-01",
         reissueAddress: "",
-        isAllowClaim: false
+        isAllowClaim: true
       },
       {
         id: 21.1,

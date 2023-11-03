@@ -188,6 +188,10 @@ export default {
     powerDuration: "2023-10-01 11:00:00 ~ 2023-11-01 11:00:00",
     rewardsContractAddressList: [
       {
+        id: 16,
+        address: "0x9b537B39Ca979ffa1c260Fb85bea0Fd761e885DE"
+      },
+      {
         id: 15,
         address: "0x204B8450360D7e2374B6E8bDB8ccf27b758FCD0B"
       },
